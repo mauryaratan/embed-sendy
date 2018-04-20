@@ -22,10 +22,10 @@ if ( is_user_logged_in() ) {
 
 <?php do_action( 'embed_sendy_form_before' ); ?>
 
-<form id="js-embed-sendy" class="embed-sendy" action="<?php echo esc_url( $esd_settings['esd_url'] ); ?>/subscribe" method="post" target="_blank">
+<form id="js-esd-form" class="esd-form" action="<?php echo esc_url( $esd_settings['esd_url'] ); ?>/subscribe" method="post" target="_blank">
 	<?php do_action( 'embed_sendy_form_start' ); ?>
 
-	<div class="form-row form-fields">
+	<div class="esd-form__row esd-form__fields">
 		<input type="email" name="email" placeholder="<?php esc_attr_e( 'Enter your email', 'esd' ); ?>" value="<?php echo ( $user ) ? esc_attr( $user->user_email ) : ''; ?>" required>
 		<input type="submit" value="<?php esc_attr_e( 'Subscribe', 'esd' ); ?>">
 

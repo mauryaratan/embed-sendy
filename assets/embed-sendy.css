@@ -1,26 +1,26 @@
-.embed-sendy {
+.esd-form {
 	margin: 30px auto;
 	padding: 50px 30px;
 	background-color: #f5f5f5;
 	text-align: center;
 }
 
-.embed-sendy .form-fields {
+.esd-form .esd-form__fields {
 	display: flex;
 }
 
-.embed-sendy .form-row + .form-row {
+.esd-form .esd-form__row + .esd-form__row {
 	margin-top: 30px;
 }
 
-.embed-sendy input[type='email'] {
+.esd-form input[type='email'] {
 	width: 100%;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: 0;
 }
 
-.embed-sendy input[type='submit'] {
+.esd-form input[type='submit'] {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 	border-left: 0;

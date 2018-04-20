@@ -46,6 +46,9 @@ final class Embed_Sendy {
 
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
+
+			add_action( 'embed_sendy_form_start', array( self::$instance, 'display_before_form' ), 20 );
+			add_action( 'embed_sendy_form_end', array( self::$instance, 'display_after_form' ), 20 );
 		}
 
 		return self::$instance;
@@ -133,11 +136,11 @@ final class Embed_Sendy {
 	public function get_option( $key ) {
 		$settings = get_option( 'esd_settings' );
 
-		if ( '' !== $key ) {
+		if ( array_key_exists( $key, $settings ) && '' !== $key ) {
 			return $settings[ $key ];
 		}
 
-		return $settings;
+		return false;
 	}
 
 	/**
@@ -170,6 +173,32 @@ final class Embed_Sendy {
 	public function get_template( $template, $data = array() ) {
 		extract( $data ); // @codingStandardsIgnoreLine
 		include ESD_PLUGIN_DIR . 'templates/' . $template . '.php';
+	}
+
+	/**
+	 * Show before form content.
+	 *
+	 * @return string|void
+	 */
+	public function display_before_form() {
+		$before_text = self::get_option( 'esd_form_header' );
+
+		if ( '' !== $before_text ) {
+			echo '<div class="esd-form__row esd-form_header">' . wpautop( $before_text ) . '</div>'; // WPCS: XSS ok.
+		}
+	}
+
+	/**
+	 * Show after form content.
+	 *
+	 * @return string|void
+	 */
+	public function display_after_form() {
+		$after_text = self::get_option( 'esd_form_footer' );
+
+		if ( '' !== $after_text ) {
+			echo '<div class="esd-form__row esd-form_footer">' . wpautop( $after_text ) . '</div>'; // WPCS: XSS ok.
+		}
 	}
 }
 

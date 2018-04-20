@@ -74,4 +74,26 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'default' => false,
 		)
 	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
+			'id'      => 'esd_form_header',
+			'type'    => 'wysiwyg',
+			'name'    => __( 'Form Header', 'esd' ),
+			'desc'    => __( 'Displayed right before form fields.', 'WPOSA' ),
+			'default' => '<h3>Join our newsletter</h3>',
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
+			'id'      => 'esd_form_footer',
+			'type'    => 'wysiwyg',
+			'name'    => __( 'Form Footer', 'esd' ),
+			'desc'    => __( 'Displayed right after form fields.', 'WPOSA' ),
+			'default' => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
+		)
+	);
 }
