@@ -103,9 +103,13 @@ final class Embed_Sendy {
 			'list' => '',
 		), $atts, 'embed_sendy' );
 
+		if ( '' === $atts['list'] ) {
+			$atts['list'] = ESD()->get_option( 'esd_default_list' );
+		}
+
 		ob_start();
 
-
+		ESD()->get_template( 'form-embed-sendy', array( 'list' => $atts['list'] ) );
 
 		return ob_get_clean();
 	}
