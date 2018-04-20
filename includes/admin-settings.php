@@ -45,6 +45,17 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
+			'id'      => 'esd_default_list',
+			'type'    => 'select',
+			'name'    => __( 'Default List', 'esd' ),
+			'desc'    => __( 'Select the default mailing list. Used in shortcode.', 'esd' ),
+			'options' => ESD()->get_lists(),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
 			'id'      => 'esd_success',
 			'type'    => 'text',
 			'name'    => __( 'Success message', 'esd' ),
