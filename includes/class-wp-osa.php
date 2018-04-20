@@ -442,7 +442,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 				}
 			}
 
-			$html .= '<a href="#" data-setting-id="' . $args['id'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
+			$html .= '<a href="#" style="margin-top:10px" data-setting-id="' . $args['id'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
 
 			echo $html;
 		}
@@ -990,6 +990,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 					max-width: 250px;
 					margin-right: 10px;
 				}
+				.esd-table { margin-top: 5px; }
 				.esd-table td {
 					padding: 0;
 					font-weight: 500;
