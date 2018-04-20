@@ -146,6 +146,17 @@ final class Embed_Sendy {
 
 		return false;
 	}
+
+	/**
+	 * Include a plugin template.
+	 *
+	 * @param string $template Template file name to include.
+	 * @param array  $data An array to pass through template.
+	 */
+	public function get_template( $template, $data = array() ) {
+		extract( $data ); // @codingStandardsIgnoreLine
+		include ESD_PLUGIN_DIR . 'templates/' . $template . '.php';
+	}
 }
 
 /**
