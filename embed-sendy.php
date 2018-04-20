@@ -45,6 +45,7 @@ final class Embed_Sendy {
 			self::$instance->includes();
 
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
+			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
 		}
 
 		return self::$instance;
@@ -90,6 +91,15 @@ final class Embed_Sendy {
 		require_once ESD_PLUGIN_DIR . 'src/init.php';
 		require_once ESD_PLUGIN_DIR . 'includes/class-wp-osa.php';
 		require_once ESD_PLUGIN_DIR . 'includes/admin-settings.php';
+	}
+
+	/**
+	 * Frontend scripts & styles.
+	 *
+	 * @return void
+	 */
+	public function frontend_scripts() {
+		wp_enqueue_style( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.css', array(), ESD_VERSION, 'screen' );
 	}
 
 	/**
