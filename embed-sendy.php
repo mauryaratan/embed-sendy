@@ -47,8 +47,8 @@ final class Embed_Sendy {
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
 
-			add_action( 'embed_sendy_form_start', array( self::$instance, 'display_before_form' ), 20 );
-			add_action( 'embed_sendy_form_end', array( self::$instance, 'display_after_form' ), 20 );
+			add_action( 'embed_sendy_form_start', array( self::$instance, 'display_before_form' ), 20, 1 );
+			add_action( 'embed_sendy_form_end', array( self::$instance, 'display_after_form' ), 20, 1 );
 		}
 
 		return self::$instance;
@@ -178,39 +178,42 @@ final class Embed_Sendy {
 	/**
 	 * Show before form content.
 	 *
+	 * @param string $list Sendy list ID.
 	 * @return string|void
 	 */
-	public function display_before_form() {
+	public function display_before_form( $list ) {
 		$before_text = self::get_option( 'esd_form_header' );
 
 		if ( '' !== $before_text ) {
-			echo '<div class="esd-form__row esd-form_header">' . self::filter_form_content( $before_text ) . '</div>'; // WPCS: XSS ok.
+			echo '<div class="esd-form__row esd-form_header">' . self::filter_form_content( $before_text, $list ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
 
 	/**
 	 * Show after form content.
 	 *
+	 * @param string $list Sendy list ID.
 	 * @return string|void
 	 */
-	public function display_after_form() {
+	public function display_after_form( $list ) {
 		$after_text = self::get_option( 'esd_form_footer' );
 
 		if ( '' !== $after_text ) {
-			echo '<div class="esd-form__row esd-form_footer">' . self::filter_form_content( $after_text ) . '</div>'; // WPCS: XSS ok.
+			echo '<div class="esd-form__row esd-form_footer">' . self::filter_form_content( $after_text, $list ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
 
 	/**
 	 * Filter and replace tags in form header/footer.
 	 *
-	 * @param mixed $text Text to filter.
+	 * @param mixed  $text Text to filter.
+	 * @param string $list Sendy list ID.
 	 * @return mixed
 	 */
-	public function filter_form_content( $text ) {
+	public function filter_form_content( $text, $list ) {
 		$filtered_text = $text;
 
-		$subscribers = self::get_subscribers();
+		$subscribers = self::get_subscribers( $list );
 		if ( $subscribers ) {
 			$filtered_text = str_replace( '{count}', $subscribers, $text );
 		}
@@ -267,12 +270,12 @@ final class Embed_Sendy {
 	public function ip_address() {
 		$ip = '127.0.0.1';
 
-		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+		// @codingStandardsIgnoreStart
 
+		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
 			// Check ip from share internet.
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
 		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-
 			// To check ip is pass from proxy.
 			// Can include more than 1 ip, first is the public one.
 			$ip = explode( ',',$_SERVER['HTTP_X_FORWARDED_FOR'] );
@@ -280,6 +283,8 @@ final class Embed_Sendy {
 		} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
+
+		// @codingStandardsIgnoreEnd
 
 		// Fix potential CSV returned from $_SERVER variables.
 		$ip_array = explode( ',', $ip );
