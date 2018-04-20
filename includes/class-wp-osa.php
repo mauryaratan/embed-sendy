@@ -442,7 +442,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 				}
 			}
 
-			$html .= '<a href="#" style="margin-top:10px" data-setting-id="' . $args['id'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
+			$html .= '<a href="#" style="margin-top:10px" data-setting-id="' . $args['id'] . '" data-setting-section="' . $args['section'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
 
 			echo $html;
 		}
@@ -913,11 +913,12 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 					e.preventDefault();
 					var self = $(this);
 					var setting_id = self.data('setting-id');
+					var setting_section = self.data('setting-section');
 
 					if ( ! $('body').find('.dynamic-field-row').length ) {
 						$('<p class="dynamic-field-row">\
-							<input type="text" data-index="'+setting_id+'" class="regular-text" name="esd_settings[esd_lists]['+setting_id+'][]" id="esd_settings[esd_lists]" >\
-							<input type="text" data-index="'+setting_id+'" class="regular-text" name="esd_settings[esd_lists]['+setting_id+'][]" id="esd_settings[esd_lists]" >\
+							<input type="text" data-index="0" class="regular-text" name="'+ setting_section +'['+setting_id+'][0][]" id="'+ setting_section +'[esd_lists]" >\
+							<input type="text" data-index="0" class="regular-text" name="'+ setting_section +'['+setting_id+'][0][]" id="'+ setting_section +'[esd_lists]" >\
 							</p>').insertBefore(self);
 						return;
 					}
@@ -984,7 +985,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 					min-width: 40px;
 					height: 24px;
 					padding-top: 4px;
-    				line-height: 1;
+					line-height: 1;
 				}
 				.dynamic-field-row input {
 					max-width: 250px;
