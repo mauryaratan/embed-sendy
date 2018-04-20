@@ -430,17 +430,19 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 			$html .= '</tr></tbody></table>';
 
 			$index = 0;
-			foreach ( $value_raw as $row ) {
-				$html .= '<p class="dynamic-field-row">';
-				foreach ( $row as $inner_row ) {
-					$html .= sprintf( '<input type="text" data-index="%7$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s][%7$s][]" value="%5$s" />', $type, $size, $args['section'], $args['id'], $inner_row, __( 'List name', 'esd' ), $index );
+			if ( is_array( $value_raw ) ) {
+				foreach ( $value_raw as $row ) {
+					$html .= '<p class="dynamic-field-row">';
+					foreach ( $row as $inner_row ) {
+						$html .= sprintf( '<input type="text" data-index="%7$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s][%7$s][]" value="%5$s" />', $type, $size, $args['section'], $args['id'], $inner_row, __( 'List name', 'esd' ), $index );
+					}
+					$html .= '<span class="remove-field js-esd-remove dashicons dashicons-trash button button-link-delete"></span>';
+					$html .= '</p>';
+					$index++;
 				}
-				$html .= '<span class="remove-field js-esd-remove dashicons dashicons-trash button button-link-delete"></span>';
-				$html .= '</p>';
-				$index++;
 			}
 
-			$html .= '<a href="#" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
+			$html .= '<a href="#" data-setting-id="' . $args['id'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
 
 			echo $html;
 		}
@@ -910,6 +912,16 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 				$( '#esd_add_list' ).on( 'click', function(e){
 					e.preventDefault();
 					var self = $(this);
+					var setting_id = self.data('setting-id');
+
+					if ( ! $('body').find('.dynamic-field-row').length ) {
+						$('<p class="dynamic-field-row">\
+							<input type="text" data-index="'+setting_id+'" class="regular-text" name="esd_settings[esd_lists]['+setting_id+'][]" id="esd_settings[esd_lists]" >\
+							<input type="text" data-index="'+setting_id+'" class="regular-text" name="esd_settings[esd_lists]['+setting_id+'][]" id="esd_settings[esd_lists]" >\
+							</p>').insertBefore(self);
+						return;
+					}
+
 					var prevElement = self.prev('.dynamic-field-row');
 
 					var prevChild = prevElement.find('input:first-child');
@@ -928,7 +940,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 
 					newElement.insertBefore(self).wrapAll('<p class="dynamic-field-row" />');
 
-					newIndex++;
+					originalIndex++;
 				} );
 
 				$( '.js-esd-remove' ).on('click', function(e){
