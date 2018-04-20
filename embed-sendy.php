@@ -111,21 +111,37 @@ final class Embed_Sendy {
 	}
 
 	/**
+	 * Get plugin settings.
+	 *
+	 * @param string $key Settings ID.
+	 * @return array
+	 */
+	public function get_option( $key ) {
+		$settings = get_option( 'esd_settings' );
+
+		if ( '' !== $key ) {
+			return $settings[ $key ];
+		}
+
+		return $settings;
+	}
+
+	/**
 	 * Format all Sendy lists as an associative array.
 	 *
 	 * @return array|void Returns array of List Name -> List ID.
 	 */
 	public function get_lists() {
-		$settings = get_option( 'esd_settings' );
+		$lists = self::get_option( 'esd_lists' );
 
-		if ( array_key_exists( 'esd_lists', $settings ) ) {
-			$new_lists = [];
+		if ( is_array( $lists ) ) {
+			$new_list = [];
 
-			foreach ( $settings['esd_lists'] as $lists ) {
-				$new_lists[ $lists[1] ] = $lists[0];
+			foreach ( $lists as $list ) {
+				$new_list[ $list[1] ] = $list[0];
 			}
 
-			return $new_lists;
+			return $new_list;
 		}
 
 		return false;
