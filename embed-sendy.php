@@ -256,6 +256,37 @@ final class Embed_Sendy {
 
 		return number_format_i18n( $subscribers );
 	}
+
+	/**
+	 * Get User IP.
+	 *
+	 * Returns the IP address of the current visitor.
+	 *
+	 * @return string $ip User's IP address
+	 */
+	public function ip_address() {
+		$ip = '127.0.0.1';
+
+		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+
+			// Check ip from share internet.
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+
+			// To check ip is pass from proxy.
+			// Can include more than 1 ip, first is the public one.
+			$ip = explode( ',',$_SERVER['HTTP_X_FORWARDED_FOR'] );
+			$ip = trim( $ip[0] );
+		} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+
+		// Fix potential CSV returned from $_SERVER variables.
+		$ip_array = explode( ',', $ip );
+		$ip_array = array_map( 'trim', $ip_array );
+
+		return apply_filters( 'esd_get_ip', $ip_array[0] );
+	}
 }
 
 /**

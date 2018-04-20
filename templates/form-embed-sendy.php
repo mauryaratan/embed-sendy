@@ -35,6 +35,7 @@ if ( is_user_logged_in() ) {
 
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
 		<input type="hidden" name="hp">
+		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
 		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">
 
 		<?php do_action( 'embed_sendy_form_fields' ); ?>
