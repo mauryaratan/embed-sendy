@@ -117,12 +117,12 @@ final class Embed_Sendy {
 		), $atts, 'embed_sendy' );
 
 		if ( '' === $atts['list'] ) {
-			$atts['list'] = ESD()->get_option( 'esd_default_list' );
+			$atts['list'] = self::get_option( 'esd_default_list' );
 		}
 
 		ob_start();
 
-		ESD()->get_template( 'form-embed-sendy', array( 'list' => $atts['list'] ) );
+		self::get_template( 'form-embed-sendy', array( 'list' => $atts['list'] ) );
 
 		return ob_get_clean();
 	}
@@ -184,7 +184,7 @@ final class Embed_Sendy {
 		$before_text = self::get_option( 'esd_form_header' );
 
 		if ( '' !== $before_text ) {
-			echo '<div class="esd-form__row esd-form_header">' . wpautop( $before_text ) . '</div>'; // WPCS: XSS ok.
+			echo '<div class="esd-form__row esd-form_header">' . self::filter_form_content( $before_text ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
 
@@ -197,9 +197,27 @@ final class Embed_Sendy {
 		$after_text = self::get_option( 'esd_form_footer' );
 
 		if ( '' !== $after_text ) {
-			echo '<div class="esd-form__row esd-form_footer">' . wpautop( $after_text ) . '</div>'; // WPCS: XSS ok.
+			echo '<div class="esd-form__row esd-form_footer">' . self::filter_form_content( $after_text ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
+
+	/**
+	 * Filter and replace tags in form header/footer.
+	 *
+	 * @param mixed $text Text to filter.
+	 * @return mixed
+	 */
+	public function filter_form_content( $text ) {
+		$filtered_text = $text;
+
+		$subscribers = self::get_subscribers();
+		if ( $subscribers ) {
+			$filtered_text = str_replace( '{count}', $subscribers, $text );
+		}
+
+		return wpautop( $filtered_text );
+	}
+
 	/**
 	 * Get subscribers count for an specific list.
 	 *

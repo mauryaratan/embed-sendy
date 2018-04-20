@@ -85,13 +85,15 @@ if ( class_exists( 'WP_OSA' ) ) {
 		)
 	);
 
+	$template_tags_text = __( ' HTML is accepted. Available template tags: <br>{count} - Returns the count of active subscribers.', 'esd' );
+
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
 			'id'      => 'esd_form_header',
 			'type'    => 'wysiwyg',
 			'name'    => __( 'Form Header', 'esd' ),
-			'desc'    => __( 'Displayed right before form fields.', 'WPOSA' ),
+			'desc'    => sprintf( __( 'Displayed right before form fields. %s', 'esd' ), $template_tags_text ),
 			'default' => '<h3>Join our newsletter</h3>',
 		)
 	);
@@ -102,7 +104,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'id'      => 'esd_form_footer',
 			'type'    => 'wysiwyg',
 			'name'    => __( 'Form Footer', 'esd' ),
-			'desc'    => __( 'Displayed right after form fields.', 'WPOSA' ),
+			'desc'    => sprintf( __( 'Displayed right after form fields. %s', 'esd' ), $template_tags_text ),
 			'default' => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
 		)
 	);
