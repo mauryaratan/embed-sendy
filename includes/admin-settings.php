@@ -35,6 +35,16 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
+			'id'   => 'esd_sendy_api',
+			'type' => 'text',
+			'name' => __( 'Sendy API key', 'esd' ),
+			'desc' => __( 'Enter your sendy API key. Optional.<br>Needed only if you plan to show subscribers count for a mailing list.', 'esd' ),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
 			'id'      => 'esd_lists',
 			'type'    => 'dynamic_text',
 			'name'    => __( 'Lists', 'esd' ),

@@ -200,6 +200,44 @@ final class Embed_Sendy {
 			echo '<div class="esd-form__row esd-form_footer">' . wpautop( $after_text ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
+	/**
+	 * Get subscribers count for an specific list.
+	 *
+	 * @param string $list List ID.
+	 * @return int Count of subscribers.
+	 */
+	public function get_subscribers( $list = '' ) {
+		// Bail early if no API is provided.
+		if ( '' === self::get_option( 'esd_sendy_api' ) ) {
+			return false;
+		}
+
+		// Use default mailing list if none is provided.
+		if ( '' === $list ) {
+			$list = self::get_option( 'esd_default_list' );
+		}
+
+		$subscribers = get_transient( 'esd_subscribers_' . $list );
+
+		if ( false === $subscribers ) {
+			$endpoint = self::get_option( 'esd_url' ) . '/api/subscribers/active-subscriber-count.php';
+
+			$response = wp_remote_post( $endpoint, array(
+				'body' => array(
+					'api_key' => self::get_option( 'esd_sendy_api' ),
+					'list_id' => $list,
+				),
+			) );
+
+			if ( ! is_wp_error( $response ) ) {
+				$subscribers = $response['body'];
+
+				set_transient( 'esd_subscribers_' . $list, $subscribers, DAY_IN_SECONDS );
+			}
+		}
+
+		return number_format_i18n( $subscribers );
+	}
 }
 
 /**
