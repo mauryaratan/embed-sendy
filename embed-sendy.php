@@ -28,3 +28,5 @@ final class Embed_Sendy {
  * Block Initializer.
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-osa.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/admin-settings.php';
