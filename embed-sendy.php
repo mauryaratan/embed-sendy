@@ -53,6 +53,7 @@ final class Embed_Sendy {
 			add_filter( 'the_content', array( self::$instance, 'display_form' ), 99 );
 
 			add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( self::$instance, 'plugin_action_links' ) );
+			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
 		}
 
 		return self::$instance;
@@ -394,6 +395,15 @@ final class Embed_Sendy {
 		), $links );
 
 		return $links;
+	}
+
+	/**
+	 * Load the plugin textdomain
+	 *
+	 * @return void
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'esd', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 }
 
