@@ -49,6 +49,8 @@ final class Embed_Sendy {
 
 			add_action( 'embed_sendy_form_start', array( self::$instance, 'display_before_form' ), 20, 1 );
 			add_action( 'embed_sendy_form_end', array( self::$instance, 'display_after_form' ), 20, 1 );
+
+			add_filter( 'the_content', array( self::$instance, 'display_form' ), 99 );
 		}
 
 		return self::$instance;
@@ -292,6 +294,42 @@ final class Embed_Sendy {
 		$ip_array = array_map( 'trim', $ip_array );
 
 		return apply_filters( 'esd_get_ip', $ip_array[0] );
+	}
+
+	/**
+	 * Output subscription form based on conditions.
+	 *
+	 * @param string|mixed $content Main content.
+	 * @return string|mixed $content Content, with subscription form added.
+	 */
+	public function display_form( $content ) {
+		$conditions = self::get_option( 'esd_display', 'esd_form_settings' );
+
+		if ( ! is_array( $conditions ) ) return;
+
+		$default_list = self::get_option( 'esd_default_list' );
+
+		ob_start();
+		self::get_template( 'form-embed-sendy', array( 'list' => $default_list ) );
+		$template = ob_get_clean();
+
+		if ( array_key_exists( 'before_post', $conditions ) && is_singular( 'post' ) ) {
+			$content = $template . $content;
+		}
+
+		if ( array_key_exists( 'after_post', $conditions ) && is_singular( 'post' ) ) {
+			$content = $content . $template;
+		}
+
+		if ( array_key_exists( 'before_page', $conditions ) && is_singular( 'page' ) ) {
+			$content = $template . $content;
+		}
+
+		if ( array_key_exists( 'after_page', $conditions ) && is_singular( 'page' ) ) {
+			$content = $content . $template;
+		}
+
+		return $content;
 	}
 }
 

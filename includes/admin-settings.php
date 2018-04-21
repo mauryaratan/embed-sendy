@@ -92,6 +92,22 @@ if ( class_exists( 'WP_OSA' ) ) {
 		)
 	);
 
+	$wposa_obj->add_field(
+		'esd_form_settings',
+		array(
+			'id'      => 'esd_display',
+			'type'    => 'multicheck',
+			'name'    => __( 'Display Options', 'esd' ),
+			'desc'    => __( 'Automatically display subscription form based on above conditions.', 'esd' ),
+			'options' => array(
+				'before_post' => __( 'Before each post', 'esd' ),
+				'after_post'  => __( 'After each post', 'esd' ),
+				'before_page' => __( 'Before each page', 'esd' ),
+				'after_page'  => __( 'After each post', 'esd' ),
+			),
+		)
+	);
+
 	$template_tags_text = __( ' HTML is accepted. Available template tags: <br>{count} - Returns the count of active subscribers.', 'esd' );
 
 	$wposa_obj->add_field(
