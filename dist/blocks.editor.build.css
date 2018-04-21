@@ -43,3 +43,8 @@
 .wp-block-embed-sendy-block-embed-sendy h5,
 .wp-block-embed-sendy-block-embed-sendy h6 {
   color: inherit; }
+
+.esd-form__footer {
+  font-size: 0.85em; }
+  .esd-form__footer p {
+    font-size: inherit; }

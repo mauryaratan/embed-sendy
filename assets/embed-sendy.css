@@ -5,12 +5,16 @@
 	text-align: center;
 }
 
-.esd-form .esd-form__fields {
+.esd-form__fields {
 	display: flex;
 }
 
-.esd-form .esd-form__row + .esd-form__row {
+.esd-form__row + .esd-form__row {
 	margin-top: 30px;
+}
+
+.esd-form__footer {
+	font-size: 0.85em;
 }
 
 .esd-form input[type='email'] {

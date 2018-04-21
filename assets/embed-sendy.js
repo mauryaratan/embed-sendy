@@ -20,7 +20,7 @@
 				dataType: 'json',
 			} )
 				.done( function() {
-					$( '<p class="esd-form__response esd-form__response--success">' + esdSettings.successMessage + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+					$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + esdSettings.successMessage + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
 				} )
 				.fail( function( data ) {
 					const response = data.responseText;
@@ -32,7 +32,7 @@
 						message = response;
 					}
 
-					$( '<p class="esd-form__response esd-form__response--error">' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+					$( '<p class="esd-form__row esd-form__response esd-form__response--error">' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
 				} )
 				.always( function() {
 					self.find( 'input[type=submit]' ).removeAttr( 'disabled' );
