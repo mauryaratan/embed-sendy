@@ -10,6 +10,7 @@
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
+import { autop } from '@wordpress/autop';
 
 const { InspectorControls } = wp.blocks;
 const { SelectControl } = wp.components;
@@ -61,7 +62,9 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	 * @return Block edit function.
 	 */
 	edit: function( { attributes: { list }, className, setAttributes } ) {
-		// Creates a <p class='wp-block-cgb-block-embed-sendy'></p>.
+		const formHeader = autop( esdBlockSettings.form_header );
+		const formFooter = autop( esdBlockSettings.form_footer );
+
 		return ( [
 			<InspectorControls key="inspector">
 				<SelectControl
@@ -73,10 +76,16 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 				/>
 			</InspectorControls>,
 			<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field">
+				{ formHeader && (
+					<div className="esd-form__row esd-form__header" dangerouslySetInnerHTML={ { __html: formHeader } }></div>
+				) }
 				<div className="esd-form__row esd-form__fields">
 					<input type="email" name="email" placeholder="Enter your email" readOnly />
 					<input type="submit" value="Subscribe" disabled="true" />
 				</div>
+				{ formFooter && (
+					<div className="esd-form__row esd-form__footer" dangerouslySetInnerHTML={ { __html: formFooter } }></div>
+				) }
 			</form>,
 		] );
 	},

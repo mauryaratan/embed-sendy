@@ -8,6 +8,7 @@
     "eject": "cgb-scripts eject"
   },
   "dependencies": {
+    "@wordpress/autop": "^1.0.5",
     "cgb-scripts": "1.9.6"
   }
 }

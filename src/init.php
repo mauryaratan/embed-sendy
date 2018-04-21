@@ -55,6 +55,8 @@ function embed_sendy_cgb_editor_assets() {
 	wp_localize_script( 'embed_sendy-cgb-block-js', 'esdBlockSettings', array(
 		'lists'        => wp_json_encode( ESD()->get_lists_object() ),
 		'default_list' => ESD()->get_option( 'esd_default_list' ),
+		'form_header'  => ESD()->get_option( 'esd_form_header', 'esd_form_settings' ),
+		'form_footer'  => ESD()->get_option( 'esd_form_footer', 'esd_form_settings' ),
 	) );
 
 	// Styles.
