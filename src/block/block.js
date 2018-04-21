@@ -5,9 +5,14 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
+/* global esdBlockSettings */
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
+
+const { InspectorControls } = wp.blocks;
+const { SelectControl } = wp.components;
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -25,16 +30,24 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'cgb/block-embed-sendy', {
+registerBlockType( 'embed-sendy/block-embed-sendy', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'embed-sendy - CGB Block' ), // Block title.
-	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	title: __( 'Embed Sendy' ), // Block title.
+	description: __( 'Displays a form for Sendy mailing list.' ),
+	icon: 'forms', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__( 'embed-sendy — CGB Block' ),
-		__( 'CGB Example' ),
-		__( 'create-guten-block' ),
+		__( 'Sendy' ),
+		__( 'form' ),
+		__( 'newsletter' ),
 	],
+
+	attributes: {
+		list: {
+			type: 'string',
+			default: esdBlockSettings.default_list,
+		},
+	},
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -43,25 +56,29 @@ registerBlockType( 'cgb/block-embed-sendy', {
 	 * The "edit" property must be a valid function.
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
+	 *
+	 * @param props Block props.
+	 * @return Block edit function.
 	 */
-	edit: function( props ) {
+	edit: function( { attributes: { list }, className, setAttributes } ) {
 		// Creates a <p class='wp-block-cgb-block-embed-sendy'></p>.
-		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>embed-sendy</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
-			</div>
-		);
+		return ( [
+			<InspectorControls key="inspector">
+				<SelectControl
+					label={ __( 'Mailing List' ) }
+					description={ __( 'Choose mailing list to use for the subscription form.' ) }
+					value={ list }
+					options={ JSON.parse( esdBlockSettings.lists ) }
+					onChange={ ( value ) => setAttributes( { list: value } ) }
+				/>
+			</InspectorControls>,
+			<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field">
+				<div className="esd-form__row esd-form__fields">
+					<input type="email" name="email" placeholder="Enter your email" readOnly />
+					<input type="submit" value="Subscribe" disabled="true" />
+				</div>
+			</form>,
+		] );
 	},
 
 	/**
@@ -73,21 +90,7 @@ registerBlockType( 'cgb/block-embed-sendy', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	save: function( props ) {
-		return (
-			<div>
-				<p>— Hello from the frontend.</p>
-				<p>
-					CGB BLOCK: <code>embed-sendy</code> is a new Gutenberg block.
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
-			</div>
-		);
+		// Rendering in PHP.
+		return null;
 	},
 } );

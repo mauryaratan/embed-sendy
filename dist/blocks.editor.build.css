@@ -10,10 +10,28 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
-.wp-block-cgb-block-embed-sendy {
-  background: #bada55;
-  border: 0.2rem solid #292929;
-  color: #292929;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem; }
+.wp-block-embed-sendy-block-embed-sendy {
+  margin: 30px auto;
+  padding: 50px 30px;
+  background-color: #f5f5f5;
+  text-align: center; }
+
+.wp-block-embed-sendy-block-embed-sendy .esd-form__fields {
+  display: -ms-flexbox;
+  display: flex; }
+
+.wp-block-embed-sendy-block-embed-sendy .esd-form__row + .esd-form__row {
+  margin-top: 30px; }
+
+.wp-block-embed-sendy-block-embed-sendy input[type='email'] {
+  width: 100%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+  margin-right: 0; }
+
+.wp-block-embed-sendy-block-embed-sendy input[type='submit'] {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+  margin-left: 0; }

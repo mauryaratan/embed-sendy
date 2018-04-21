@@ -51,6 +51,12 @@ function embed_sendy_cgb_editor_assets() {
 		// filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ) // Version: filemtime — Gets file modification time.
 	);
 
+	// Gutenberg related settings.
+	wp_localize_script( 'embed_sendy-cgb-block-js', 'esdBlockSettings', array(
+		'lists'        => wp_json_encode( ESD()->get_lists_object() ),
+		'default_list' => ESD()->get_option( 'esd_default_list' ),
+	) );
+
 	// Styles.
 	wp_enqueue_style(
 		'embed_sendy-cgb-block-editor-css', // Handle.
@@ -62,3 +68,29 @@ function embed_sendy_cgb_editor_assets() {
 
 // Hook: Editor assets.
 add_action( 'enqueue_block_editor_assets', 'embed_sendy_cgb_editor_assets' );
+
+function esd_register_block_types() {
+	if ( ! function_exists( 'register_block_type' ) ) return;
+
+	register_block_type( 'embed-sendy/block-embed-sendy', array(
+		'attributes'      => array(
+			'list' => array(
+				'type'    => 'string',
+				'default' => ESD()->get_option( 'esd_default_list' ),
+			),
+		),
+		'render_callback' => 'esd_render_block_form',
+	) );
+}
+add_action( 'init', 'esd_register_block_types' );
+
+function esd_render_block_form( $attributes ) {
+
+	ob_start();
+
+	ESD()->get_template( 'form-embed-sendy', array( 'list' => $attributes['list'] ) );
+
+	$block_content = ob_get_clean();
+
+	return $block_content;
+}
