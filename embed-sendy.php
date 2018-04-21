@@ -51,6 +51,8 @@ final class Embed_Sendy {
 			add_action( 'embed_sendy_form_end', array( self::$instance, 'display_after_form' ), 20, 1 );
 
 			add_filter( 'the_content', array( self::$instance, 'display_form' ), 99 );
+
+			add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( self::$instance, 'plugin_action_links' ) );
 		}
 
 		return self::$instance;
@@ -374,6 +376,24 @@ final class Embed_Sendy {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Add plugin action links.
+	 *
+	 * Add a link to the settings page on the plugins.php page.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  array $links List of existing plugin action links.
+	 * @return array        List of modified plugin action links.
+	 */
+	public function plugin_action_links( $links ) {
+		$links = array_merge( array(
+			'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . __( 'Settings', 'esd' ) . '</a>',
+		), $links );
+
+		return $links;
 	}
 }
 
