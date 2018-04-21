@@ -113,6 +113,7 @@ function esd_render_block_form( $attributes ) {
 		'list'             => $attributes['list'],
 		'background_color' => $attributes['formBackgroundColor'],
 		'text_color'       => $attributes['formTextColor'],
+		'is_block'         => true,
 	) );
 
 	$block_content = ob_get_clean();

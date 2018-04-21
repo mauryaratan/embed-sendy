@@ -24,7 +24,7 @@ if ( is_user_logged_in() ) {
 
 <?php do_action( 'embed_sendy_form_before', $list ); ?>
 
-<form id="js-esd-form" class="esd-form" action="<?php echo esc_url( $esd_settings['esd_url'] ); ?>/subscribe" method="post" target="_blank">
+<form id="js-esd-form" class="esd-form<?php if ( isset( $is_block ) ) echo ' esd-form--block'; ?>" action="<?php echo esc_url( $esd_settings['esd_url'] ); ?>/subscribe" method="post" target="_blank">
 	<?php do_action( 'embed_sendy_form_start', $list ); ?>
 
 	<div class="esd-form__row esd-form__fields">
@@ -45,14 +45,16 @@ if ( is_user_logged_in() ) {
 
 	<?php do_action( 'embed_sendy_form_end', $list ); ?>
 
+	<?php if ( isset( $is_block ) ) : ?>
 	<style>
 		<?php if ( isset( $background_color ) ) : ?>
-		.esd-form { background-color: <?php echo esc_html( $background_color ); ?> }
+		.esd-form--block { background-color: <?php echo esc_html( $background_color ); ?> }
 		<?php endif; ?>
 		<?php if ( isset( $text_color ) ) : ?>
-		.esd-form { color: <?php echo esc_html( $text_color ); ?> }
+		.esd-form--block { color: <?php echo esc_html( $text_color ); ?> }
 		<?php endif; ?>
 	</style>
+	<?php endif; ?>
 </form><!-- #js-embed-sendy.embed-sendy -->
 
 <?php do_action( 'embed_sendy_form_after', $list ); ?>
