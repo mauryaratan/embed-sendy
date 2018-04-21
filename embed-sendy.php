@@ -185,7 +185,7 @@ final class Embed_Sendy {
 		$before_text = self::get_option( 'esd_form_header', 'esd_form_settings' );
 
 		if ( '' !== $before_text ) {
-			echo '<div class="esd-form__row esd-form_header">' . self::filter_form_content( $before_text, $list ) . '</div>'; // WPCS: XSS ok.
+			echo '<div class="esd-form__row esd-form__header">' . self::filter_form_content( $before_text, $list ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
 
@@ -199,7 +199,7 @@ final class Embed_Sendy {
 		$after_text = self::get_option( 'esd_form_footer', 'esd_form_settings' );
 
 		if ( '' !== $after_text ) {
-			echo '<div class="esd-form__row esd-form_footer">' . self::filter_form_content( $after_text, $list ) . '</div>'; // WPCS: XSS ok.
+			echo '<div class="esd-form__row esd-form__footer">' . self::filter_form_content( $after_text, $list ) . '</div>'; // WPCS: XSS ok.
 		}
 	}
 
