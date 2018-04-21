@@ -77,7 +77,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'type'    => 'text',
 			'name'    => __( 'Success message', 'esd' ),
 			'desc'    => __( 'Displayed when a user successfully subscribes to your mailing list.', 'esd' ),
-			'default' => false,
+			'default' => 'Thanks for subscribing!',
 		)
 	);
 
@@ -88,7 +88,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'type'    => 'text',
 			'name'    => __( 'Already subscribed', 'esd' ),
 			'desc'    => __( 'Displayed when a user is already subscribed to your mailing list.', 'esd' ),
-			'default' => false,
+			'default' => 'You are already subscribed to this list.',
 		)
 	);
 

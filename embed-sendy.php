@@ -106,6 +106,14 @@ final class Embed_Sendy {
 	 */
 	public function frontend_scripts() {
 		wp_enqueue_style( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.css', array(), ESD_VERSION, 'screen' );
+
+		wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', array( 'jquery' ), ESD_VERSION, true );
+
+		wp_localize_script( 'embed-sendy', 'esdSettings', array(
+			'url'               => trailingslashit( self::get_option( 'esd_url' ) ) . 'subscribe',
+			'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
+			'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
+		) );
 	}
 
 	/**
