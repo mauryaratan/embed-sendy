@@ -753,7 +753,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 		public function plugin_page() {
 			echo '<div class="wrap">';
 			echo '<h1>' . esc_html__( 'Embed Sendy Settings', 'esd' ) . '</h1>';
-			// $this->show_navigation();
+			$this->show_navigation();
 			$this->show_forms();
 			echo '</div>';
 		}

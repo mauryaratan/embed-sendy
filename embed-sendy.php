@@ -133,8 +133,8 @@ final class Embed_Sendy {
 	 * @param string $key Settings ID.
 	 * @return array
 	 */
-	public function get_option( $key ) {
-		$settings = get_option( 'esd_settings' );
+	public function get_option( $key, $section = 'esd_settings' ) {
+		$settings = get_option( $section );
 
 		if ( array_key_exists( $key, $settings ) && '' !== $key ) {
 			return $settings[ $key ];
@@ -182,7 +182,7 @@ final class Embed_Sendy {
 	 * @return string|void
 	 */
 	public function display_before_form( $list ) {
-		$before_text = self::get_option( 'esd_form_header' );
+		$before_text = self::get_option( 'esd_form_header', 'esd_form_settings' );
 
 		if ( '' !== $before_text ) {
 			echo '<div class="esd-form__row esd-form_header">' . self::filter_form_content( $before_text, $list ) . '</div>'; // WPCS: XSS ok.
@@ -196,7 +196,7 @@ final class Embed_Sendy {
 	 * @return string|void
 	 */
 	public function display_after_form( $list ) {
-		$after_text = self::get_option( 'esd_form_footer' );
+		$after_text = self::get_option( 'esd_form_footer', 'esd_form_settings' );
 
 		if ( '' !== $after_text ) {
 			echo '<div class="esd-form__row esd-form_footer">' . self::filter_form_content( $after_text, $list ) . '</div>'; // WPCS: XSS ok.

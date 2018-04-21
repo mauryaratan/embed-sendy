@@ -20,6 +20,13 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'title' => __( 'Basic Settings', 'esd' ),
 		)
 	);
+	// Section: Form Settings.
+	$wposa_obj->add_section(
+		array(
+			'id'    => 'esd_form_settings',
+			'title' => __( 'Form Settings', 'esd' ),
+		)
+	);
 
 	$wposa_obj->add_field(
 		'esd_settings',
@@ -64,7 +71,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 	);
 
 	$wposa_obj->add_field(
-		'esd_settings',
+		'esd_form_settings',
 		array(
 			'id'      => 'esd_success',
 			'type'    => 'text',
@@ -75,7 +82,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 	);
 
 	$wposa_obj->add_field(
-		'esd_settings',
+		'esd_form_settings',
 		array(
 			'id'      => 'esd_already_subscribed',
 			'type'    => 'text',
@@ -88,7 +95,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$template_tags_text = __( ' HTML is accepted. Available template tags: <br>{count} - Returns the count of active subscribers.', 'esd' );
 
 	$wposa_obj->add_field(
-		'esd_settings',
+		'esd_form_settings',
 		array(
 			'id'      => 'esd_form_header',
 			'type'    => 'wysiwyg',
@@ -99,7 +106,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 	);
 
 	$wposa_obj->add_field(
-		'esd_settings',
+		'esd_form_settings',
 		array(
 			'id'      => 'esd_form_footer',
 			'type'    => 'wysiwyg',
