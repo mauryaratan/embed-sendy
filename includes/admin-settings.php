@@ -65,7 +65,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'id'      => 'esd_default_list',
 			'type'    => 'select',
 			'name'    => __( 'Default List', 'esd' ),
-			'desc'    => __( 'Select the default mailing list. Used in shortcode.', 'esd' ),
+			'desc'    => __( 'Select the default mailing list. Used in shortcode, and widget.', 'esd' ),
 			'options' => ESD()->get_lists(),
 		)
 	);
