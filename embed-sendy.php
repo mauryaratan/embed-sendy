@@ -105,7 +105,10 @@ final class Embed_Sendy {
 	 * @return void
 	 */
 	public function frontend_scripts() {
-		wp_enqueue_style( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.css', array(), ESD_VERSION, 'screen' );
+		$disable_styles = self::get_option( 'esd_disable_styles' );
+		if ( 'off' === $disable_styles ) {
+			wp_enqueue_style( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.css', array(), ESD_VERSION, 'screen' );
+		}
 
 		$disable_ajax = self::get_option( 'esd_disable_ajax' );
 		if ( 'off' === $disable_ajax ) {

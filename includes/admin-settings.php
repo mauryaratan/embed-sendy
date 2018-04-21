@@ -80,6 +80,16 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'default' => false,
 		)
 	);
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
+			'id'      => 'esd_disable_styles',
+			'type'    => 'checkbox',
+			'name'    => __( 'Disable styles', 'esd' ),
+			'desc'    => __( 'Embed sendy forms comes with some default styles, check this option to disable.', 'esd' ),
+			'default' => false,
+		)
+	);
 
 	$wposa_obj->add_field(
 		'esd_form_settings',
