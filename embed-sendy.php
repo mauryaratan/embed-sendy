@@ -94,6 +94,7 @@ final class Embed_Sendy {
 		require_once ESD_PLUGIN_DIR . 'src/init.php';
 		require_once ESD_PLUGIN_DIR . 'includes/class-wp-osa.php';
 		require_once ESD_PLUGIN_DIR . 'includes/admin-settings.php';
+		require_once ESD_PLUGIN_DIR . 'includes/class-embed-sendy-widget.php';
 	}
 
 	/**
