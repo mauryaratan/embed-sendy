@@ -42,6 +42,15 @@ if ( is_user_logged_in() ) {
 	</div>
 
 	<?php do_action( 'embed_sendy_form_end', $list ); ?>
+
+	<style>
+		<?php if ( isset( $background_color ) ) : ?>
+		.esd-form { background-color: <?php echo esc_html( $background_color ); ?> }
+		<?php endif; ?>
+		<?php if ( isset( $text_color ) ) : ?>
+		.esd-form { color: <?php echo esc_html( $text_color ); ?> }
+		<?php endif; ?>
+	</style>
 </form><!-- #js-embed-sendy.embed-sendy -->
 
 <?php do_action( 'embed_sendy_form_after', $list ); ?>

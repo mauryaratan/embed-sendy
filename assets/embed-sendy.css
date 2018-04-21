@@ -25,3 +25,12 @@
 	border-bottom-left-radius: 0;
 	border-left: 0;
 }
+
+.esd-form h1,
+.esd-form h2,
+.esd-form h3,
+.esd-form h4,
+.esd-form h5,
+.esd-form h6 {
+	color: inherit;
+}

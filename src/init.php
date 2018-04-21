@@ -71,14 +71,27 @@ function embed_sendy_cgb_editor_assets() {
 // Hook: Editor assets.
 add_action( 'enqueue_block_editor_assets', 'embed_sendy_cgb_editor_assets' );
 
+/**
+ * Register block types.
+ *
+ * @return void
+ */
 function esd_register_block_types() {
 	if ( ! function_exists( 'register_block_type' ) ) return;
 
 	register_block_type( 'embed-sendy/block-embed-sendy', array(
 		'attributes'      => array(
-			'list' => array(
+			'list'                => array(
 				'type'    => 'string',
 				'default' => ESD()->get_option( 'esd_default_list' ),
+			),
+			'formBackgroundColor' => array(
+				'type'    => 'string',
+				'default' => '#f5f5f5',
+			),
+			'formTextColor'       => array(
+				'type'    => 'string',
+				'default' => '#000000',
 			),
 		),
 		'render_callback' => 'esd_render_block_form',
@@ -86,11 +99,21 @@ function esd_register_block_types() {
 }
 add_action( 'init', 'esd_register_block_types' );
 
+/**
+ * Render Gutenberg block for Embed Sendy block.
+ *
+ * @param array $attributes An array of block settings.
+ * @return string|mixed
+ */
 function esd_render_block_form( $attributes ) {
 
 	ob_start();
 
-	ESD()->get_template( 'form-embed-sendy', array( 'list' => $attributes['list'] ) );
+	ESD()->get_template( 'form-embed-sendy', array(
+		'list'             => $attributes['list'],
+		'background_color' => $attributes['formBackgroundColor'],
+		'text_color'       => $attributes['formTextColor'],
+	) );
 
 	$block_content = ob_get_clean();
 

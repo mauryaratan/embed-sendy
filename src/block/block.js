@@ -12,8 +12,16 @@ import './style.scss';
 import './editor.scss';
 import { autop } from '@wordpress/autop';
 
-const { InspectorControls } = wp.blocks;
-const { SelectControl } = wp.components;
+const {
+	InspectorControls,
+	ColorPalette,
+} = wp.blocks;
+
+const {
+	SelectControl,
+	PanelBody,
+	PanelColor,
+} = wp.components;
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -48,6 +56,14 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 			type: 'string',
 			default: esdBlockSettings.default_list,
 		},
+		formBackgroundColor: {
+			type: 'string',
+			default: '#f5f5f5',
+		},
+		formTextColor: {
+			type: 'string',
+			default: '#000000',
+		},
 	},
 
 	/**
@@ -58,24 +74,57 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 *
-	 * @param props Block props.
-	 * @return Block edit function.
+	 * @param {Object} props Block props.
+	 * @returns {Array} Array of Block control and block.
 	 */
-	edit: function( { attributes: { list }, className, setAttributes } ) {
+	edit: function( { attributes: { list, formBackgroundColor, formTextColor }, className, setAttributes } ) {
 		const formHeader = autop( esdBlockSettings.form_header );
 		const formFooter = autop( esdBlockSettings.form_footer );
 
 		return ( [
 			<InspectorControls key="inspector">
-				<SelectControl
-					label={ __( 'Mailing List' ) }
-					description={ __( 'Choose mailing list to use for the subscription form.' ) }
-					value={ list }
-					options={ JSON.parse( esdBlockSettings.lists ) }
-					onChange={ ( value ) => setAttributes( { list: value } ) }
-				/>
+				<PanelBody>
+					<SelectControl
+						label={ __( 'Mailing List' ) }
+						description={ __( 'Choose mailing list to use for the subscription form.' ) }
+						value={ list }
+						options={ JSON.parse( esdBlockSettings.lists ) }
+						onChange={ ( value ) => setAttributes( { list: value } ) }
+					/>
+
+					<PanelColor
+						title={ __( 'Form Background Color' ) }
+						colorValue={ formBackgroundColor }
+						initialOpen={ false }
+					>
+						<ColorPalette
+							label={ __( 'Form Background Color' ) }
+							value={ formBackgroundColor }
+							onChange={ ( value ) => setAttributes( { formBackgroundColor: value } ) }
+							colors={ [ '#00d1b2', '#3373dc', '#209cef', '#22d25f', '#ffdd57', '#ff3860', '#7941b6', '#392F43' ] }
+						/>
+					</PanelColor>
+
+					<PanelColor
+						title={ __( 'Text Color' ) }
+						colorValue={ formTextColor }
+						initialOpen={ false }
+					>
+						<ColorPalette
+							label={ __( 'Background Color' ) }
+							value={ formTextColor }
+							onChange={ ( value ) => setAttributes( { formTextColor: value } ) }
+							colors={ [ '#32373c', '#fff' ] }
+						/>
+					</PanelColor>
+
+				</PanelBody>
 			</InspectorControls>,
-			<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field">
+
+			<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field" style={ {
+				backgroundColor: formBackgroundColor,
+				color: formTextColor,
+			} }>
 				{ formHeader && (
 					<div className="esd-form__row esd-form__header" dangerouslySetInnerHTML={ { __html: formHeader } }></div>
 				) }
@@ -97,8 +146,10 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	 * The "save" property must be specified and must be a valid function.
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
+	 *
+	 * @returns {undefined}
 	 */
-	save: function( props ) {
+	save: function() {
 		// Rendering in PHP.
 		return null;
 	},
