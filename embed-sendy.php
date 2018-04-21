@@ -151,10 +151,13 @@ final class Embed_Sendy {
 	 * Get plugin settings.
 	 *
 	 * @param string $key Settings ID.
+	 * @param string $section Section ID.
 	 * @return array
 	 */
 	public function get_option( $key, $section = 'esd_settings' ) {
 		$settings = get_option( $section );
+
+		if ( ! is_array( $settings ) ) return false;
 
 		if ( array_key_exists( $key, $settings ) && '' !== $key ) {
 			return $settings[ $key ];
@@ -171,7 +174,7 @@ final class Embed_Sendy {
 	public function get_lists() {
 		$lists = self::get_option( 'esd_lists' );
 
-		if ( is_array( $lists ) ) {
+		if ( $lists && is_array( $lists ) ) {
 			$new_list = [];
 
 			foreach ( $lists as $list ) {

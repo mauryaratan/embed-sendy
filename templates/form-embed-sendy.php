@@ -7,6 +7,8 @@
 
 $esd_settings = get_option( 'esd_settings' );
 
+if ( ! is_array( $esd_settings ) ) return;
+
 // Bail early if no lists found.
 if ( ! array_key_exists( 'esd_lists', $esd_settings ) || ! array_key_exists( 'esd_url', $esd_settings ) ) return;
 
