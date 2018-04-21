@@ -324,7 +324,7 @@ final class Embed_Sendy {
 	public function display_form( $content ) {
 		$conditions = self::get_option( 'esd_display', 'esd_form_settings' );
 
-		if ( ! is_array( $conditions ) ) return;
+		if ( ! is_array( $conditions ) ) return $content;
 
 		$default_list = self::get_option( 'esd_default_list' );
 
