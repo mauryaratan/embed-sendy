@@ -124,7 +124,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 				'before_post' => __( 'Before each post', 'esd' ),
 				'after_post'  => __( 'After each post', 'esd' ),
 				'before_page' => __( 'Before each page', 'esd' ),
-				'after_page'  => __( 'After each post', 'esd' ),
+				'after_page'  => __( 'After each page', 'esd' ),
 			),
 		)
 	);
