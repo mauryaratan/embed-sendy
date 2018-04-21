@@ -182,6 +182,31 @@ final class Embed_Sendy {
 	}
 
 	/**
+	 * Format all Sendy lists as an object for Gutenberg.
+	 *
+	 * @return array|void Returns array of List Name -> List ID.
+	 */
+	public function get_lists_object() {
+		$lists = self::get_option( 'esd_lists' );
+
+		if ( is_array( $lists ) ) {
+			$new_list = [];
+			$index = 0;
+
+			foreach ( $lists as $list ) {
+				$new_list[ $index ]['label'] = $list[0];
+				$new_list[ $index ]['value'] = $list[1];
+
+				$index++;
+			}
+
+			return $new_list;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Include a plugin template.
 	 *
 	 * @param string $template Template file name to include.
