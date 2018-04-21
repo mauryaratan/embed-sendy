@@ -293,7 +293,12 @@ final class Embed_Sendy {
 		$ip_array = explode( ',', $ip );
 		$ip_array = array_map( 'trim', $ip_array );
 
-		return apply_filters( 'esd_get_ip', $ip_array[0] );
+		$final_ip = $ip_array[0];
+		if ( '::1' === $final_ip ) {
+			$final_ip = '127.0.0.1';
+		}
+
+		return apply_filters( 'esd_get_ip', $final_ip );
 	}
 
 	/**
