@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@wordpress/autop": "^1.0.5",
-    "cgb-scripts": "1.9.6"
+    "cgb-scripts": "1.9.6",
+    "node-sass": "^4.9.0"
   }
 }

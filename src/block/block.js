@@ -10,6 +10,7 @@
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
+import icon from './icon';
 import { autop } from '@wordpress/autop';
 
 const {
@@ -43,7 +44,7 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Embed Sendy' ), // Block title.
 	description: __( 'Displays a form for Sendy mailing list.' ),
-	icon: 'forms', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	icon: icon, // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
 		__( 'Sendy' ),
