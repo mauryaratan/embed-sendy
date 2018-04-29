@@ -59,5 +59,5 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.0 =
 * Initial release

@@ -3,25 +3,25 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Embed Sendy\n"
-"POT-Creation-Date: 2018-04-21 20:32+0530\n"
+"POT-Creation-Date: 2018-04-29 13:32+0530\n"
 "PO-Revision-Date: 2018-04-21 20:32+0530\n"
 "Last-Translator: Ram Ratan Maurya <ram@codestag.com>\n"
 "Language-Team: Ram Ratan Maurya <ram@codestag.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: embed-sendy.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: embed-sendy.php:394
+#: embed-sendy.php:397
 msgid "Settings"
 msgstr ""
 
@@ -55,94 +55,94 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: includes/admin-settings.php:67
+#: includes/admin-settings.php:68
 msgid "Default List"
 msgstr ""
 
-#: includes/admin-settings.php:68
+#: includes/admin-settings.php:69
 msgid "Select the default mailing list. Used in shortcode, and widget."
 msgstr ""
 
-#: includes/admin-settings.php:78
+#: includes/admin-settings.php:80
 msgid "Disable AJAX submission"
 msgstr ""
 
-#: includes/admin-settings.php:79
+#: includes/admin-settings.php:81
 msgid ""
 "Disable form's ajax submission.<br>In which case, on form submission user "
 "will be redirected to <code>https://YOUR_SENDY_INSTALLATION/subscribe</code>"
 msgstr ""
 
-#: includes/admin-settings.php:88
+#: includes/admin-settings.php:90
 msgid "Disable styles"
 msgstr ""
 
-#: includes/admin-settings.php:89
+#: includes/admin-settings.php:91
 msgid ""
 "Embed sendy forms comes with some default styles, check this option to "
 "disable."
 msgstr ""
 
-#: includes/admin-settings.php:99
+#: includes/admin-settings.php:101
 msgid "Success message"
 msgstr ""
 
-#: includes/admin-settings.php:100
+#: includes/admin-settings.php:102
 msgid "Displayed when a user successfully subscribes to your mailing list."
 msgstr ""
 
-#: includes/admin-settings.php:110
+#: includes/admin-settings.php:112
 msgid "Already subscribed"
 msgstr ""
 
-#: includes/admin-settings.php:111
+#: includes/admin-settings.php:113
 msgid "Displayed when a user is already subscribed to your mailing list."
 msgstr ""
 
-#: includes/admin-settings.php:121
+#: includes/admin-settings.php:123
 msgid "Display Options"
 msgstr ""
 
-#: includes/admin-settings.php:122
+#: includes/admin-settings.php:124
 msgid "Automatically display subscription form based on above conditions."
 msgstr ""
 
-#: includes/admin-settings.php:124
+#: includes/admin-settings.php:126
 msgid "Before each post"
 msgstr ""
 
-#: includes/admin-settings.php:125
+#: includes/admin-settings.php:127
 msgid "After each post"
 msgstr ""
 
-#: includes/admin-settings.php:126
+#: includes/admin-settings.php:128
 msgid "Before each page"
 msgstr ""
 
-#: includes/admin-settings.php:127
+#: includes/admin-settings.php:129
 msgid "After each page"
 msgstr ""
 
-#: includes/admin-settings.php:132
+#: includes/admin-settings.php:134
 msgid ""
 " HTML is accepted. Available template tags: <br>{count} - Returns the count "
 "of active subscribers."
 msgstr ""
 
-#: includes/admin-settings.php:139
+#: includes/admin-settings.php:141
 msgid "Form Header"
 msgstr ""
 
-#: includes/admin-settings.php:140
+#: includes/admin-settings.php:142
 #, php-format
 msgid "Displayed right before form fields. %s"
 msgstr ""
 
-#: includes/admin-settings.php:150
+#: includes/admin-settings.php:152
 msgid "Form Footer"
 msgstr ""
 
-#: includes/admin-settings.php:151
+#: includes/admin-settings.php:153
 #, php-format
 msgid "Displayed right after form fields. %s"
 msgstr ""
@@ -189,11 +189,11 @@ msgstr ""
 msgid "Embed Sendy Settings"
 msgstr ""
 
-#: templates/form-embed-sendy.php:29
+#: templates/form-embed-sendy.php:31
 msgid "Enter your email"
 msgstr ""
 
-#: templates/form-embed-sendy.php:30
+#: templates/form-embed-sendy.php:32
 msgid "Subscribe"
 msgstr ""
 
