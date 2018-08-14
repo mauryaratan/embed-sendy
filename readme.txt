@@ -3,7 +3,7 @@ Contributors: mauryaratan, codestag
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
 Tested up to: 5.0-alpha
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -58,6 +58,10 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 4. Embed Sendy Gutenberg block.
 
 == Changelog ==
+
+= 1.0.1 =
+* Tweak: Compatibility with Gutenberg 3.5
+* Fix: Incorrect Honeypot field
 
 = 1.0.0 =
 * Initial release
