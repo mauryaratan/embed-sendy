@@ -1,3 +1,9 @@
+## Embed Sendy
+
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/dt/embed-sendy.svg?style=flat)](https://wordpress.org/plugins/embed-sendy/) [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/embed-sendy.svg?style=flat)](https://wordpress.org/plugins/embed-sendy/) [![WordPress](https://img.shields.io/wordpress/v/embed-sendy.svg?style=flat)]()
+
+[![Embed Sendy](https://ps.w.org/embed-sendy/assets/banner-1544x500.jpg)](https://wordpress.org/plugins/embed-sendy/)
+
 Embed Sendy allows you to embed subscription forms for [Sendy](https://codest.ag/sendy) through different methods, including a widget, shortcode, or as a Gutenberg block.
 
 ### Features
