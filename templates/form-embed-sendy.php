@@ -35,8 +35,9 @@ if ( is_user_logged_in() ) {
 		<input type="hidden" name="name" value="<?php echo esc_attr( $user->display_name ); ?>">
 		<?php endif; ?>
 
+		<input type="text" name="hp" id="hp" style="display:none">
+
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
-		<input type="hidden" name="hp">
 		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
 		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">
 
