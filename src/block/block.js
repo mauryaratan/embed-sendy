@@ -6,23 +6,13 @@
  */
 
 /* global esdBlockSettings */
-
-//  Import CSS.
-import './style.scss';
+import { autop } from '@wordpress/autop';
+import Controls from './controls';
 import './editor.scss';
 import icon from './icon';
-import { autop } from '@wordpress/autop';
+import './style.scss';
 
-const {
-	InspectorControls,
-	ColorPalette,
-} = wp.blocks;
-
-const {
-	SelectControl,
-	PanelBody,
-	PanelColor,
-} = wp.components;
+const { Fragment } = wp.element;
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -43,7 +33,7 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 registerBlockType( 'embed-sendy/block-embed-sendy', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Embed Sendy' ), // Block title.
-	description: __( 'Displays a form for Sendy mailing list.' ),
+	description: __( 'Displays a subscription form for Sendy mailing list.' ),
 	icon: icon, // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
@@ -78,66 +68,33 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	 * @param {Object} props Block props.
 	 * @returns {Array} Array of Block control and block.
 	 */
-	edit: function( { attributes: { list, formBackgroundColor, formTextColor }, className, setAttributes } ) {
+	edit( props ) {
+		const { attributes: { formBackgroundColor, formTextColor }, className } = props;
+
 		const formHeader = autop( esdBlockSettings.form_header );
 		const formFooter = autop( esdBlockSettings.form_footer );
 
-		return ( [
-			<InspectorControls key="inspector">
-				<PanelBody>
-					<SelectControl
-						label={ __( 'Mailing List' ) }
-						description={ __( 'Choose mailing list to use for the subscription form.' ) }
-						value={ list }
-						options={ JSON.parse( esdBlockSettings.lists ) }
-						onChange={ ( value ) => setAttributes( { list: value } ) }
-					/>
+		return (
+			<Fragment>
+				<Controls { ...props } />
 
-					<PanelColor
-						title={ __( 'Form Background Color' ) }
-						colorValue={ formBackgroundColor }
-						initialOpen={ false }
-					>
-						<ColorPalette
-							label={ __( 'Form Background Color' ) }
-							value={ formBackgroundColor }
-							onChange={ ( value ) => setAttributes( { formBackgroundColor: value } ) }
-							colors={ [ '#00d1b2', '#3373dc', '#209cef', '#22d25f', '#ffdd57', '#ff3860', '#7941b6', '#392F43' ] }
-						/>
-					</PanelColor>
-
-					<PanelColor
-						title={ __( 'Text Color' ) }
-						colorValue={ formTextColor }
-						initialOpen={ false }
-					>
-						<ColorPalette
-							label={ __( 'Background Color' ) }
-							value={ formTextColor }
-							onChange={ ( value ) => setAttributes( { formTextColor: value } ) }
-							colors={ [ '#32373c', '#fff' ] }
-						/>
-					</PanelColor>
-
-				</PanelBody>
-			</InspectorControls>,
-
-			<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field" style={ {
-				backgroundColor: formBackgroundColor,
-				color: formTextColor,
-			} }>
-				{ formHeader && (
-					<div className="esd-form__row esd-form__header" dangerouslySetInnerHTML={ { __html: formHeader } }></div>
-				) }
-				<div className="esd-form__row esd-form__fields">
-					<input type="email" name="email" placeholder="Enter your email" readOnly />
-					<input type="submit" value="Subscribe" disabled="true" />
-				</div>
-				{ formFooter && (
-					<div className="esd-form__row esd-form__footer" dangerouslySetInnerHTML={ { __html: formFooter } }></div>
-				) }
-			</form>,
-		] );
+				<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field" style={ {
+					backgroundColor: formBackgroundColor,
+					color: formTextColor,
+				} }>
+					{ formHeader && (
+						<div className="esd-form__row esd-form__header" dangerouslySetInnerHTML={ { __html: formHeader } }></div>
+					) }
+					<div className="esd-form__row esd-form__fields">
+						<input type="email" name="email" placeholder="Enter your email" readOnly />
+						<input type="submit" value="Subscribe" disabled="true" />
+					</div>
+					{ formFooter && (
+						<div className="esd-form__row esd-form__footer" dangerouslySetInnerHTML={ { __html: formFooter } }></div>
+					) }
+				</form>
+			</Fragment>
+		);
 	},
 
 	/**
@@ -150,7 +107,7 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	 *
 	 * @returns {undefined}
 	 */
-	save: function() {
+	save() {
 		// Rendering in PHP.
 		return null;
 	},
