@@ -245,6 +245,10 @@ final class Embed_Sendy {
 	public function display_before_form( $list ) {
 		$before_text = self::get_option( 'esd_form_header', 'esd_form_settings' );
 
+		if ( '' === $before_text ) {
+			ESD()->get_default( 'esd_form_header' );
+		}
+
 		if ( '' !== $before_text ) {
 			echo '<div class="esd-form__row esd-form__header">' . self::filter_form_content( $before_text, $list ) . '</div>'; // WPCS: XSS ok.
 		}
@@ -258,6 +262,10 @@ final class Embed_Sendy {
 	 */
 	public function display_after_form( $list ) {
 		$after_text = self::get_option( 'esd_form_footer', 'esd_form_settings' );
+
+		if ( '' === $after_text ) {
+			ESD()->get_default( 'esd_form_footer' );
+		}
 
 		if ( '' !== $after_text ) {
 			echo '<div class="esd-form__row esd-form__footer">' . self::filter_form_content( $after_text, $list ) . '</div>'; // WPCS: XSS ok.
@@ -424,7 +432,11 @@ final class Embed_Sendy {
 
 	public function get_default( $key ) {
 		return array(
-			'esd_gdpr_text' => 'I consent to having this website store my submitted information so they can add me to an email subscription list.',
+			'esd_gdpr_text'          => 'I consent to having this website store my submitted information so they can add me to an email subscription list.',
+			'esd_success'            => 'Thanks for subscribing!',
+			'esd_already_subscribed' => 'You are already subscribed to this list.',
+			'esd_form_header'        => '<h3>Join our newsletter</h3>',
+			'esd_form_footer'        => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
 		);
 	}
 

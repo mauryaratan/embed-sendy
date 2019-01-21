@@ -133,7 +133,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'type'    => 'text',
 			'name'    => __( 'Success message', 'esd' ),
 			'desc'    => __( 'Displayed when a user successfully subscribes to your mailing list.', 'esd' ),
-			'default' => 'Thanks for subscribing!',
+			'default' => ESD()->get_default( 'esd_success' ),
 		)
 	);
 
@@ -144,7 +144,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'type'    => 'text',
 			'name'    => __( 'Already subscribed', 'esd' ),
 			'desc'    => __( 'Displayed when a user is already subscribed to your mailing list.', 'esd' ),
-			'default' => 'You are already subscribed to this list.',
+			'default' => ESD()->get_default( 'esd_already_subscribed' ),
 		)
 	);
 
@@ -173,7 +173,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'type'    => 'wysiwyg',
 			'name'    => __( 'Form Header', 'esd' ),
 			'desc'    => sprintf( __( 'Displayed right before form fields. %s', 'esd' ), $template_tags_text ),
-			'default' => '<h3>Join our newsletter</h3>',
+			'default' => ESD()->get_default( 'esd_form_header' ),
 		)
 	);
 
@@ -184,7 +184,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'type'    => 'wysiwyg',
 			'name'    => __( 'Form Footer', 'esd' ),
 			'desc'    => sprintf( __( 'Displayed right after form fields. %s', 'esd' ), $template_tags_text ),
-			'default' => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
+			'default' => ESD()->get_default( 'esd_form_footer' ),
 		)
 	);
 }
