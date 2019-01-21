@@ -17,14 +17,14 @@
 	font-size: 0.85em;
 }
 
-.esd-form input[type='email'] {
+.esd-form:not(.esd-form--show-name) input[type='email'] {
 	width: 100%;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: 0;
 }
 
-.esd-form input[type='submit'] {
+.esd-form:not(.esd-form--show-name) input[type='submit'] {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 	border-left: 0;
@@ -37,4 +37,16 @@
 .esd-form h5,
 .esd-form h6 {
 	color: inherit;
+}
+
+.esd-form--show-name .esd-form__fields {
+	display: block;
+}
+
+.esd-form--show-name .esd-form__fields input {
+	width: 100%;
+}
+
+.esd-form--show-name .esd-form__fields input + input {
+	margin: 10px 0 0;
 }

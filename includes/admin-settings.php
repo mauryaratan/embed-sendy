@@ -75,6 +75,17 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
+			'id'      => 'esd_show_name',
+			'type'    => 'checkbox',
+			'name'    => __( 'Show name field', 'esd' ),
+			'desc'    => __( 'Show Name field in forms along with Email.', 'esd' ),
+			'default' => false,
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
 			'id'      => 'esd_disable_ajax',
 			'type'    => 'checkbox',
 			'name'    => __( 'Disable AJAX submission', 'esd' ),
