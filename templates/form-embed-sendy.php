@@ -28,7 +28,7 @@ if ( isset( $is_block ) ) {
 	$class .= ' esd-form--block';
 }
 
-if ( $show_name ) {
+if ( 'on' === $show_name ) {
 	$class .= ' esd-form--show-name';
 }
 
@@ -40,7 +40,7 @@ if ( $show_name ) {
 	<?php do_action( 'embed_sendy_form_start', $list ); ?>
 
 	<div class="esd-form__row esd-form__fields">
-		<?php if ( $show_name ) : ?>
+		<?php if ( 'on' === $show_name ) : ?>
 		<input type="text" name="name" placeholder="<?php esc_attr_e( 'Name', 'esd' ); ?>" value="<?php echo esc_attr( $user->display_name ); ?>">
 		<?php endif; ?>
 
