@@ -43,10 +43,24 @@
 	display: block;
 }
 
-.esd-form--show-name .esd-form__fields input {
+.esd-form--show-name .esd-form__fields input:not([type=checkbox]) {
 	width: 100%;
 }
 
 .esd-form--show-name .esd-form__fields input + input {
 	margin: 10px 0 0;
+}
+
+.gdpr-row {
+	font-size: 0.75em;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	margin: 15px 0;
+}
+
+.gdpr-row label {
+	display: block;
+	margin-left: 10px;
+	line-height: 1.4;
 }

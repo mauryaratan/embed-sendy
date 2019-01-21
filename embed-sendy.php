@@ -32,6 +32,8 @@ final class Embed_Sendy {
 	 */
 	private static $instance;
 
+	protected static $sendy_api;
+
 	/**
 	 * Main Embed_Sendy Instance.
 	 *
@@ -44,6 +46,12 @@ final class Embed_Sendy {
 			self::$instance->setup_constants();
 			self::$instance->includes();
 
+			self::$sendy_api = new \SENDY\API([
+				'sendyUrl' => self::get_option( 'esd_url' ),
+				'listId'   => self::get_option( 'esd_default_list' ),
+				'apiKey'   => self::get_option( 'esd_sendy_api' ),
+			]);
+
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
 
@@ -54,6 +62,9 @@ final class Embed_Sendy {
 
 			add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( self::$instance, 'plugin_action_links' ) );
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+
+			add_action( 'wp_ajax_process_sendy', array( self::$instance, 'process_sendy' ) );
+			add_action( 'wp_ajax_nopriv_process_sendy', array( self::$instance, 'process_sendy' ) );
 		}
 
 		return self::$instance;
@@ -97,6 +108,7 @@ final class Embed_Sendy {
 	 */
 	private function includes() {
 		require_once ESD_PLUGIN_DIR . 'src/init.php';
+		require_once ESD_PLUGIN_DIR . 'includes/class-api.php';
 		require_once ESD_PLUGIN_DIR . 'includes/class-wp-osa.php';
 		require_once ESD_PLUGIN_DIR . 'includes/admin-settings.php';
 		require_once ESD_PLUGIN_DIR . 'includes/class-embed-sendy-widget.php';
@@ -118,6 +130,7 @@ final class Embed_Sendy {
 			wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', array( 'jquery' ), ESD_VERSION, true );
 
 			wp_localize_script( 'embed-sendy', 'esdSettings', array(
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 				'url'               => trailingslashit( self::get_option( 'esd_url' ) ) . 'subscribe',
 				'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
 				'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
@@ -154,7 +167,7 @@ final class Embed_Sendy {
 	 * @param string $section Section ID.
 	 * @return array
 	 */
-	public function get_option( $key, $section = 'esd_settings' ) {
+	public static function get_option( $key, $section = 'esd_settings' ) {
 		$settings = get_option( $section );
 
 		if ( ! is_array( $settings ) ) return false;
@@ -407,6 +420,35 @@ final class Embed_Sendy {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'esd', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	}
+
+	public function get_default( $key ) {
+		return array(
+			'esd_gdpr_text' => 'I consent to having this website store my submitted information so they can add me to an email subscription list.',
+		);
+	}
+
+	public function process_sendy() {
+		check_ajax_referer( 'process_sendy' );
+
+		if ( isset( $_POST['antispam'] ) && '' !== $_POST['antispam'] ) {
+			wp_send_json_error( array(
+				'sucess' => false,
+			) );
+		}
+
+		self::$sendy_api->setListId( $_POST['list'] );
+		$response = self::$sendy_api->subscribe( array(
+			'name'      => isset( $_POST['name'] ) ? $_POST['name'] : false,
+			'email'     => $_POST['email'],
+			'ipaddress' => $_POST['ipaddress'],
+			'referrer'  => $_POST['referrer'],
+			'gdpr'      => isset( $_POST['gdpr'] ) ? $_POST['gdpr'] : false,
+		) );
+
+		wp_send_json_success( $response );
+
+		wp_die();
 	}
 }
 
