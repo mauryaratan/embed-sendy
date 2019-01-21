@@ -13,6 +13,8 @@ if ( ! is_array( $esd_settings ) ) return;
 if ( ! array_key_exists( 'esd_lists', $esd_settings ) || ! array_key_exists( 'esd_url', $esd_settings ) ) return;
 
 $show_name = isset( $esd_settings['esd_show_name'] ) ? $esd_settings['esd_show_name'] : false;
+$show_gdpr = isset( $esd_settings['esd_show_gdpr'] ) ? $esd_settings['esd_show_gdpr'] : false;
+$gdpr_text = isset( $esd_settings['esd_gdpr_text'] ) ? $esd_settings['esd_gdpr_text'] : ESD()->get_default( 'esd_gdpr_text' );
 
 global $wp;
 $user = false;
@@ -28,7 +30,7 @@ if ( isset( $is_block ) ) {
 	$class .= ' esd-form--block';
 }
 
-if ( 'on' === $show_name ) {
+if ( 'on' === $show_name || 'on' === $show_gdpr ) {
 	$class .= ' esd-form--show-name';
 }
 
@@ -45,11 +47,20 @@ if ( 'on' === $show_name ) {
 		<?php endif; ?>
 
 		<input type="email" name="email" placeholder="<?php esc_attr_e( 'Email', 'esd' ); ?>" value="<?php echo ( $user ) ? esc_attr( $user->user_email ) : ''; ?>" required>
+
+		<?php if ( 'on' === $show_gdpr ) : ?>
+		<div class="gdpr-row">
+			<input type="checkbox" id="gdpr" name="gdpr">
+			<label for="gdpr"><?php echo esc_html( $gdpr_text ); ?></label>
+		</div>
+		<?php endif; ?>
+
 		<input type="submit" value="<?php esc_attr_e( 'Subscribe', 'esd' ); ?>">
-		<input type="text" name="hp" id="hp" style="display:none">
+		<input type="text" name="antispam" style="display:none">
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
 		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
-		<input type="hidden" name="referrer" value="<?php echo esc_attr( wp_get_referer() ); ?>">
+		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">
+		<?php wp_nonce_field( 'process_sendy' ); ?>
 
 		<?php do_action( 'embed_sendy_form_fields', $list ); ?>
 	</div>

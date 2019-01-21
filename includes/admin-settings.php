@@ -86,6 +86,28 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
+			'id'      => 'esd_show_gdpr',
+			'type'    => 'checkbox',
+			'name'    => __( 'GDPR Enhancement', 'esd' ),
+			'desc'    => __( 'Check this to turn on GDPR related features.', 'esd' ),
+			'default' => false,
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
+			'id'      => 'esd_gdpr_text',
+			'type'    => 'text',
+			'name'    => __( 'GDPR Agreement Text', 'esd' ),
+			'default' => ESD()->get_default( 'esd_gdpr_text' ),
+			'size'    => 'large',
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
 			'id'      => 'esd_disable_ajax',
 			'type'    => 'checkbox',
 			'name'    => __( 'Disable AJAX submission', 'esd' ),
