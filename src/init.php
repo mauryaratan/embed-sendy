@@ -25,7 +25,7 @@ function embed_sendy_cgb_block_assets() {
 	wp_enqueue_style(
 		'embed_sendy-cgb-style-css', // Handle.
 		plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ), // Block style CSS.
-		array( 'wp-blocks' ) // Dependency to include the CSS after it.
+		array( 'wp-edit-blocks' ) // Dependency to include the CSS after it.
 		// filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' ) // Version: filemtime — Gets file modification time.
 	);
 } // End function embed_sendy_cgb_block_assets().

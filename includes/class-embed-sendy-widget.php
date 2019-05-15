@@ -6,7 +6,9 @@
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Embed Sendy widget.
@@ -83,9 +85,13 @@ class Embed_Sendy_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>"><?php esc_html_e( 'Mailing List:', 'esd' ); ?></label>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'list' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>">
+			<?php
+			if ( false !== ESD()->get_lists() ) :
+				?>
 				<?php foreach ( ESD()->get_lists() as $list_id => $list_name ) : ?>
 				<option value="<?php echo esc_attr( $list_id ); ?>" <?php selected( $instance['list'], $list_id ); ?>><?php echo esc_html( $list_name ); ?></option>
 				<?php endforeach; ?>
+			<?php endif; ?>
 			</select>
 		</p>
 
