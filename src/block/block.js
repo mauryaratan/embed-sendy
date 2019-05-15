@@ -87,7 +87,7 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 					) }
 					<div className="esd-form__row esd-form__fields">
 						<input type="email" name="email" placeholder="Enter your email" readOnly />
-						<input type="submit" value="Subscribe" disabled="true" />
+						<input type="submit" value="Subscribe" disabled />
 					</div>
 					{ formFooter && (
 						<div className="esd-form__row esd-form__footer" dangerouslySetInnerHTML={ { __html: formFooter } }></div>
