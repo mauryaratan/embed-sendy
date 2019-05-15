@@ -431,13 +431,14 @@ final class Embed_Sendy {
 	}
 
 	public function get_default( $key ) {
-		return array(
+		$messages = array(
 			'esd_gdpr_text'          => 'I consent to having this website store my submitted information so they can add me to an email subscription list.',
 			'esd_success'            => 'Thanks for subscribing!',
 			'esd_already_subscribed' => 'You are already subscribed to this list.',
 			'esd_form_header'        => '<h3>Join our newsletter</h3>',
 			'esd_form_footer'        => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
 		);
+		return $messages[ $key ];
 	}
 
 	public function process_sendy() {
