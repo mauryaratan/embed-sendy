@@ -8,8 +8,8 @@
     "eject": "cgb-scripts eject"
   },
   "dependencies": {
-    "@wordpress/autop": "^1.0.5",
-    "cgb-scripts": "1.9.6",
-    "node-sass": "^4.9.0"
+    "@wordpress/autop": "^2.2.0",
+    "cgb-scripts": "1.17.0",
+    "node-sass": "^4.12.0"
   }
 }
