@@ -7,6 +7,7 @@
 
 /* global esdBlockSettings */
 import { autop } from '@wordpress/autop';
+import classnames from 'classnames';
 import Controls from './controls';
 import './editor.scss';
 import icon from './icon';
@@ -16,6 +17,7 @@ const { Fragment } = wp.element;
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { Disabled } = wp.components;
 
 /**
  * Register: aa Gutenberg Block.
@@ -43,6 +45,14 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	],
 
 	attributes: {
+		name: {
+			type: 'checkbox',
+			default: false,
+		},
+		gdpr: {
+			type: 'checkbox',
+			default: false,
+		},
 		list: {
 			type: 'string',
 			default: esdBlockSettings.default_list,
@@ -69,7 +79,7 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 	 * @returns {Array} Array of Block control and block.
 	 */
 	edit( props ) {
-		const { attributes: { formBackgroundColor, formTextColor }, className } = props;
+		const { attributes: { formBackgroundColor, formTextColor, name, gdpr }, className } = props;
 
 		const formHeader = autop( esdBlockSettings.form_header );
 		const formFooter = autop( esdBlockSettings.form_footer );
@@ -78,21 +88,36 @@ registerBlockType( 'embed-sendy/block-embed-sendy', {
 			<Fragment>
 				<Controls { ...props } />
 
-				<form method="post" id="js-esd-form" className={ 'esd-form ' + className } key="block-field" style={ {
-					backgroundColor: formBackgroundColor,
-					color: formTextColor,
-				} }>
-					{ formHeader && (
-						<div className="esd-form__row esd-form__header" dangerouslySetInnerHTML={ { __html: formHeader } }></div>
-					) }
-					<div className="esd-form__row esd-form__fields">
-						<input type="email" name="email" placeholder="Enter your email" readOnly />
-						<input type="submit" value="Subscribe" disabled />
-					</div>
-					{ formFooter && (
-						<div className="esd-form__row esd-form__footer" dangerouslySetInnerHTML={ { __html: formFooter } }></div>
-					) }
-				</form>
+				<Disabled>
+
+					<form method="post" id="js-esd-form" className={ classnames( 'esd-form', className, {
+						'esd-form--show-name': !! ( name || gdpr ),
+					} ) } key="block-field" style={ {
+						backgroundColor: formBackgroundColor,
+						color: formTextColor,
+					} }>
+						{ formHeader && (
+							<div className="esd-form__row esd-form__header" dangerouslySetInnerHTML={ { __html: formHeader } }></div>
+						) }
+						<div className="esd-form__row esd-form__fields">
+							{ name && (
+								<input type="text" name="name" placeholder="Name" readOnly />
+							) }
+							<input type="email" name="email" placeholder="Enter your email" readOnly />
+
+							{ gdpr && (
+								<div className="gdpr-row">
+									<input type="checkbox" id="gdpr" name="gdpr" readOnly />
+									<label htmlFor="gdpr">{ esdBlockSettings.gdpr_text }</label>
+								</div>
+							) }
+							<input type="submit" value="Subscribe" />
+						</div>
+						{ formFooter && (
+							<div className="esd-form__row esd-form__footer" dangerouslySetInnerHTML={ { __html: formFooter } }></div>
+						) }
+					</form>
+				</Disabled>
 			</Fragment>
 		);
 	},

@@ -26,11 +26,13 @@ if ( is_user_logged_in() ) {
 
 $class = 'esd-form';
 
+$in_block = false;
 if ( isset( $is_block ) ) {
-	$class .= ' esd-form--block';
+	$class   .= ' esd-form--block';
+	$in_block = true;
 }
 
-if ( 'on' === $show_name || 'on' === $show_gdpr ) {
+if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 	$class .= ' esd-form--show-name';
 }
 
@@ -44,13 +46,13 @@ if ( 'on' === $show_name || 'on' === $show_gdpr ) {
 	<style>#antispam { display: none; }</style>
 
 	<div class="esd-form__row esd-form__fields">
-		<?php if ( 'on' === $show_name ) : ?>
+		<?php if ( ( 'on' === $show_name && ! $in_block ) || ( $in_block && $name ) ) : ?>
 		<input type="text" name="name" placeholder="<?php esc_attr_e( 'Name', 'esd' ); ?>" value="<?php echo esc_attr( $user->display_name ); ?>">
 		<?php endif; ?>
 
 		<input type="email" name="email" placeholder="<?php esc_attr_e( 'Email', 'esd' ); ?>" value="<?php echo ( $user ) ? esc_attr( $user->user_email ) : ''; ?>" required>
 
-		<?php if ( 'on' === $show_gdpr ) : ?>
+		<?php if ( ( 'on' === $show_gdpr && ! $in_block ) || ( $in_block && $gdpr ) ) : ?>
 		<div class="gdpr-row">
 			<input type="checkbox" id="gdpr" name="gdpr">
 			<label for="gdpr"><?php echo esc_html( $gdpr_text ); ?></label>

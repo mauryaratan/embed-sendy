@@ -3,11 +3,11 @@ const { __ } = wp.i18n;
 
 const { InspectorControls, PanelColorSettings } = wp.editor;
 
-const { SelectControl, PanelBody } = wp.components;
+const { SelectControl, PanelBody, ToggleControl } = wp.components;
 
 const Controls = props => {
 	const {
-		attributes: { list, formBackgroundColor, formTextColor },
+		attributes: { list, formBackgroundColor, formTextColor, name, gdpr },
 		setAttributes,
 	} = props;
 
@@ -23,6 +23,19 @@ const Controls = props => {
 						value={ list }
 						options={ JSON.parse( esdBlockSettings.lists ) }
 						onChange={ value => setAttributes( { list: value } ) }
+					/>
+
+					<ToggleControl
+						label={ __( 'Display Name Field' ) }
+						checked={ !! name }
+						help={ __( 'Optionally, display name field in the form' ) }
+						onChange={ () => setAttributes( { name: ! name } ) }
+					/>
+					<ToggleControl
+						label={ __( 'Display GDPR Field' ) }
+						checked={ !! gdpr }
+						help={ __( 'Optionally, display GDPR field in the form' ) }
+						onChange={ () => setAttributes( { gdpr: ! gdpr } ) }
 					/>
 				</PanelBody>
 			) }

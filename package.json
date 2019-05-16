@@ -10,6 +10,7 @@
   "dependencies": {
     "@wordpress/autop": "^2.2.0",
     "cgb-scripts": "1.17.0",
+    "classnames": "^2.2.6",
     "node-sass": "^4.12.0"
   }
 }

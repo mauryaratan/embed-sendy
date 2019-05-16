@@ -48,3 +48,19 @@
   font-size: 0.85em; }
   .esd-form__footer p {
     font-size: inherit; }
+
+.esd-form--show-name .esd-form__fields {
+  display: block; }
+  .esd-form--show-name .esd-form__fields > * {
+    margin-bottom: 10px; }
+  .esd-form--show-name .esd-form__fields input:not([type=checkbox]) {
+    width: 100%; }
+
+.gdpr-row {
+  font-size: 0.75em;
+  text-align: left;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  margin: 15px 0; }

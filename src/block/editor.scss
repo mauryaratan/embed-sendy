@@ -50,3 +50,23 @@
 		font-size: inherit;
 	}
 }
+
+.esd-form--show-name .esd-form__fields {
+	display: block;
+
+	> * {
+		margin-bottom: 10px;
+	}
+
+	input:not([type=checkbox]) {
+		width: 100%;
+	}
+}
+
+.gdpr-row {
+    font-size: 0.75em;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
