@@ -65,7 +65,7 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 * Fix: Issue with honeypot field
 * Fix: Set correct data for 'referrer' field
 * Fix: Possible thrown errors when no sendy lists exist
-* Improve: Compatibilite upto WordPress v5.2
+* Improve: Compatible upto WordPress v5.2
 * Improve: Sendy Gutenberg block to show/hide new Name/GDPR fields.
 * Improve: Better error handling when no lists are set
 * Improve: Better and secure ajax submission
