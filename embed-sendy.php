@@ -46,11 +46,13 @@ final class Embed_Sendy {
 			self::$instance->setup_constants();
 			self::$instance->includes();
 
-			self::$sendy_api = new \SENDY\API([
-				'sendyUrl' => self::get_option( 'esd_url' ),
-				'listId'   => self::get_option( 'esd_default_list' ),
-				'apiKey'   => self::get_option( 'esd_sendy_api' ),
-			]);
+			self::$sendy_api = new \SENDY\API(
+				[
+					'sendyUrl' => self::get_option( 'esd_url' ),
+					'listId'   => self::get_option( 'esd_default_list' ),
+					'apiKey'   => self::get_option( 'esd_sendy_api' ),
+				]
+			);
 
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
@@ -129,12 +131,16 @@ final class Embed_Sendy {
 		if ( 'off' === $disable_ajax ) {
 			wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', array( 'jquery' ), ESD_VERSION, true );
 
-			wp_localize_script( 'embed-sendy', 'esdSettings', array(
-				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-				'url'               => trailingslashit( self::get_option( 'esd_url' ) ) . 'subscribe',
-				'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
-				'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
-			) );
+			wp_localize_script(
+				'embed-sendy',
+				'esdSettings',
+				array(
+					'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+					'url'               => trailingslashit( self::get_option( 'esd_url' ) ) . 'subscribe',
+					'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
+					'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
+				)
+			);
 		}
 	}
 
@@ -145,9 +151,13 @@ final class Embed_Sendy {
 	 * @return mixed
 	 */
 	public function embed_sendy_shortcode( $atts ) {
-		$atts = shortcode_atts( array(
-			'list' => '',
-		), $atts, 'embed_sendy' );
+		$atts = shortcode_atts(
+			array(
+				'list' => '',
+			),
+			$atts,
+			'embed_sendy'
+		);
 
 		if ( '' === $atts['list'] ) {
 			$atts['list'] = self::get_option( 'esd_default_list' );
@@ -170,7 +180,9 @@ final class Embed_Sendy {
 	public static function get_option( $key, $section = 'esd_settings' ) {
 		$settings = get_option( $section );
 
-		if ( ! is_array( $settings ) ) return false;
+		if ( ! is_array( $settings ) ) {
+			return false;
+		}
 
 		if ( array_key_exists( $key, $settings ) && '' !== $key ) {
 			return $settings[ $key ];
@@ -210,7 +222,7 @@ final class Embed_Sendy {
 
 		if ( is_array( $lists ) ) {
 			$new_list = [];
-			$index = 0;
+			$index    = 0;
 
 			foreach ( $lists as $list ) {
 				$new_list[ $index ]['label'] = $list[0];
@@ -312,12 +324,15 @@ final class Embed_Sendy {
 		if ( false === $subscribers ) {
 			$endpoint = self::get_option( 'esd_url' ) . '/api/subscribers/active-subscriber-count.php';
 
-			$response = wp_remote_post( $endpoint, array(
-				'body' => array(
-					'api_key' => self::get_option( 'esd_sendy_api' ),
-					'list_id' => $list,
-				),
-			) );
+			$response = wp_remote_post(
+				$endpoint,
+				array(
+					'body' => array(
+						'api_key' => self::get_option( 'esd_sendy_api' ),
+						'list_id' => $list,
+					),
+				)
+			);
 
 			if ( ! is_wp_error( $response ) ) {
 				$subscribers = $response['body'];
@@ -376,7 +391,9 @@ final class Embed_Sendy {
 	public function display_form( $content ) {
 		$conditions = self::get_option( 'esd_display', 'esd_form_settings' );
 
-		if ( ! is_array( $conditions ) ) return $content;
+		if ( ! is_array( $conditions ) ) {
+			return $content;
+		}
 
 		$default_list = self::get_option( 'esd_default_list' );
 
@@ -414,9 +431,12 @@ final class Embed_Sendy {
 	 * @return array        List of modified plugin action links.
 	 */
 	public function plugin_action_links( $links ) {
-		$links = array_merge( array(
-			'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . __( 'Settings', 'esd' ) . '</a>',
-		), $links );
+		$links = array_merge(
+			array(
+				'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . __( 'Settings', 'esd' ) . '</a>',
+			),
+			$links
+		);
 
 		return $links;
 	}
@@ -431,32 +451,37 @@ final class Embed_Sendy {
 	}
 
 	public function get_default( $key ) {
-		return array(
+		$messages = array(
 			'esd_gdpr_text'          => 'I consent to having this website store my submitted information so they can add me to an email subscription list.',
 			'esd_success'            => 'Thanks for subscribing!',
 			'esd_already_subscribed' => 'You are already subscribed to this list.',
 			'esd_form_header'        => '<h3>Join our newsletter</h3>',
 			'esd_form_footer'        => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
 		);
+		return $messages[ $key ];
 	}
 
 	public function process_sendy() {
 		check_ajax_referer( 'process_sendy' );
 
 		if ( isset( $_POST['antispam'] ) && '' !== $_POST['antispam'] ) {
-			wp_send_json_error( array(
-				'sucess' => false,
-			) );
+			wp_send_json_error(
+				array(
+					'sucess' => false,
+				)
+			);
 		}
 
 		self::$sendy_api->setListId( $_POST['list'] );
-		$response = self::$sendy_api->subscribe( array(
-			'name'      => isset( $_POST['name'] ) ? $_POST['name'] : false,
-			'email'     => $_POST['email'],
-			'ipaddress' => $_POST['ipaddress'],
-			'referrer'  => $_POST['referrer'],
-			'gdpr'      => isset( $_POST['gdpr'] ) ? $_POST['gdpr'] : false,
-		) );
+		$response = self::$sendy_api->subscribe(
+			array(
+				'name'      => isset( $_POST['name'] ) ? $_POST['name'] : false,
+				'email'     => $_POST['email'],
+				'ipaddress' => $_POST['ipaddress'],
+				'referrer'  => $_POST['referrer'],
+				'gdpr'      => isset( $_POST['gdpr'] ) ? $_POST['gdpr'] : false,
+			)
+		);
 
 		wp_send_json_success( $response );
 
