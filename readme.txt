@@ -2,8 +2,8 @@
 Contributors: mauryaratan, codestag
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
-Tested up to: 5.0-alpha
-Stable tag: 1.0.1
+Tested up to: 5.2
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -59,9 +59,25 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 == Changelog ==
 
+= 1.1 =
+* New: Added support for Name field
+* New: Added support for GDPR consent
+* Fix: Issue with honeypot field
+* Fix: Set correct data for 'referrer' field
+* Fix: Possible thrown errors when no sendy lists exist
+* Improve: Compatibilite upto WordPress v5.2
+* Improve: Sendy Gutenberg block to show/hide new Name/GDPR fields.
+* Improve: Better error handling when no lists are set
+* Improve: Better and secure ajax submission
+
 = 1.0.1 =
 * Tweak: Compatibility with Gutenberg 3.5
 * Fix: Incorrect Honeypot field
 
 = 1.0.0 =
 * Initial release
+
+== Upgrade notice ==
+
+= 1.1 =
+- Added new Name and GDPR fields and several bug fixes.
