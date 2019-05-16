@@ -54,7 +54,7 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 
 		<?php if ( ( 'on' === $show_gdpr && ! $in_block ) || ( $in_block && $gdpr ) ) : ?>
 		<div class="gdpr-row">
-			<input type="checkbox" id="gdpr" name="gdpr">
+			<input type="checkbox" id="gdpr" name="gdpr" required>
 			<label for="gdpr"><?php echo esc_html( $gdpr_text ); ?></label>
 		</div>
 		<?php endif; ?>
