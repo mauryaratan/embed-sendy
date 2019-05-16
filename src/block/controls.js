@@ -1,43 +1,49 @@
 /* global esdBlockSettings */
 const { __ } = wp.i18n;
 
-const {
-	InspectorControls,
-	PanelColorSettings,
-} = wp.editor;
+const { InspectorControls, PanelColorSettings } = wp.editor;
 
 const { SelectControl, PanelBody } = wp.components;
 
-const Controls = ( props ) => {
-	const { attributes: { list, formBackgroundColor, formTextColor }, setAttributes } = props;
+const Controls = props => {
+	const {
+		attributes: { list, formBackgroundColor, formTextColor },
+		setAttributes,
+	} = props;
 
 	return (
 		<InspectorControls>
-			<PanelBody>
-				<SelectControl
-					label={ __( 'Mailing List' ) }
-					description={ __( 'Choose mailing list to use for the subscription form.' ) }
-					value={ list }
-					options={ JSON.parse( esdBlockSettings.lists ) }
-					onChange={ ( value ) => setAttributes( { list: value } ) }
-				/>
+			{ esdBlockSettings.lists !== 'false' && (
+				<PanelBody title={ __( 'Form Settings' ) } initialOpen={ true }>
+					<SelectControl
+						label={ __( 'Mailing List' ) }
+						description={ __(
+							'Choose mailing list to use for the subscription form.'
+						) }
+						value={ list }
+						options={ JSON.parse( esdBlockSettings.lists ) }
+						onChange={ value => setAttributes( { list: value } ) }
+					/>
+				</PanelBody>
+			) }
 
-				<PanelColorSettings
-					title={ __( 'Color Settings' ) }
-					colorSettings={ [
-						{
-							label: __( 'Background Color' ),
-							value: formBackgroundColor,
-							onChange: ( value ) => setAttributes( { formBackgroundColor: value } ),
-						},
-						{
-							label: __( 'Text Color' ),
-							value: formTextColor,
-							onChange: ( value ) => setAttributes( { formTextColor: value } ),
-						},
-					] }
-				/>
-			</PanelBody>
+			<PanelColorSettings
+				title={ __( 'Color Settings' ) }
+				colorSettings={ [
+					{
+						label: __( 'Background Color' ),
+						value: formBackgroundColor,
+						onChange: value =>
+							setAttributes( { formBackgroundColor: value } ),
+					},
+					{
+						label: __( 'Text Color' ),
+						value: formTextColor,
+						onChange: value =>
+							setAttributes( { formTextColor: value } ),
+					},
+				] }
+			/>
 		</InspectorControls>
 	);
 };
