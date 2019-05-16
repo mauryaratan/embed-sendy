@@ -84,8 +84,22 @@ class API {
 
 		// Bail if empty.
 		if ( empty( $this->sendyUrl ) || empty( $this->apiKey ) || empty( $this->listId ) ) {
-			throw new Exception( 'Required config parameters [sendyUrl, listId, apiKey] is not set or empty', 1 );
+			add_action( 'admin_notices', [ $this, 'required_params__notice' ] );
 		}
+	}
+
+	/**
+	 * Shows an admin notice when the required parameters are not set.
+	 *
+	 * @since  @@
+	 * @return void
+	 */
+	public function required_params__notice() {
+		?>
+		<div class="notice notice-warning is-dismissible">
+			<p><strong><?php esc_html_e( 'Sendy URL, Sendy API Key & List ID is empty or not set yet! ', 'esd' ); ?><a href="<?php echo esc_url( get_admin_url() . 'options-general.php?page=embed_sendy' ); ?>"><?php esc_html_e( 'Please configure them.', 'esd' ); ?></a></strong></p>
+		</div>
+		<?php
 	}
 
 	/**
