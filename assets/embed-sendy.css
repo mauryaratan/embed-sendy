@@ -64,3 +64,8 @@
 	margin-left: 10px;
 	line-height: 1.4;
 }
+
+.esd-form__response--error {
+	font-size: 1rem;
+	color: red;
+}
