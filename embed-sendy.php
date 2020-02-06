@@ -128,21 +128,17 @@ final class Embed_Sendy {
 			wp_enqueue_style( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.css', array(), ESD_VERSION, 'screen' );
 		}
 
-		$disable_ajax = self::get_option( 'esd_disable_ajax' );
-		if ( 'off' === $disable_ajax ) {
-			wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', array( 'jquery' ), ESD_VERSION, true );
+		wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', array( 'jquery' ), ESD_VERSION, true );
 
-			wp_localize_script(
-				'embed-sendy',
-				'esdSettings',
-				array(
-					'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-					'url'               => trailingslashit( self::get_option( 'esd_url' ) ) . 'subscribe',
-					'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
-					'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
-				)
-			);
-		}
+		wp_localize_script(
+			'embed-sendy',
+			'esdSettings',
+			array(
+				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+				'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
+				'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
+			)
+		);
 	}
 
 	/**

@@ -108,16 +108,6 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
-			'id'      => 'esd_disable_ajax',
-			'type'    => 'checkbox',
-			'name'    => __( 'Disable AJAX submission', 'esd' ),
-			'desc'    => __( 'Disable form\'s ajax submission.<p class=description>In which case, on form submission user will be redirected to <code>https://YOUR_SENDY_INSTALLATION/subscribe</code></p>', 'esd' ),
-			'default' => false,
-		)
-	);
-	$wposa_obj->add_field(
-		'esd_settings',
-		array(
 			'id'      => 'esd_disable_styles',
 			'type'    => 'checkbox',
 			'name'    => __( 'Disable styles', 'esd' ),
