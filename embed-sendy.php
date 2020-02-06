@@ -465,7 +465,7 @@ final class Embed_Sendy {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => 'Invalid data received.',
+					'message' => __( 'Invalid data received.', 'esd' ),
 				)
 			);
 		}
@@ -474,7 +474,16 @@ final class Embed_Sendy {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => 'Invalid parameters.',
+					'message' => __( 'Invalid parameters.', 'esd' ),
+				)
+			);
+		}
+
+		if ( ! filter_var( wp_unslash( $_POST['email'] ), FILTER_VALIDATE_EMAIL ) ) {
+			wp_send_json_error(
+				array(
+					'success' => false,
+					'message' => __( 'Invalid email provided', 'esd' ),
 				)
 			);
 		}
