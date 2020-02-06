@@ -24,7 +24,22 @@
 				dataType: 'json',
 			} )
 				.done( function( res ) {
-					$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + esdSettings.successMessage + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+					if ( res.data && res.data.status === false ) {
+						const message = res.data.message || 'Some error occurred.';
+						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+						return;
+					}
+
+					if ( res.success && res.success === false ) {
+						console.log( error );
+						return;
+					}
+
+					if ( res.success && res.data.status ) {
+						const message = ( res.data.message === 'Already subscribed!' ) ? esdSettings.alreadySubscribed : esdSettings.successMessage;
+
+						$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+					}
 				} )
 				.fail( function( data ) {
 					const response = data.responseText;
@@ -36,7 +51,7 @@
 						message = response;
 					}
 
-					$( '<p class="esd-form__row esd-form__response esd-form__response--error">' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+					$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
 				} )
 				.always( function() {
 					self.find( 'input[type=submit]' ).removeAttr( 'disabled' );
