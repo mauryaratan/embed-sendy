@@ -1,9 +1,9 @@
 === Embed Sendy ===
-Contributors: mauryaratan, codestag
+Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
-Tested up to: 5.2
-Stable tag: 1.1
+Tested up to: 5.2.3
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -15,6 +15,7 @@ Embed Sendy subscription form, through a widget, shortcode, or as a Gutenberg bl
 Embed Sendy allows you to embed subscription forms for [Sendy](https://codest.ag/sendy) through different methods, including a widget, shortcode, or as a Gutenberg block.
 
 = Features =
+* **NEW**: Added Google Recaptcha support
 * Support multiple lists, so you can offer subscription for different lists in different scenarios
 * AJAX submission for forms, option to enable/disable
 * Comes with default form styles, with option to disable
@@ -59,6 +60,14 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 == Changelog ==
 
+= 1.2 =
+* New: Added support for Google Recaptcha 🎉
+* Improve: Much improved form validation and security
+* Improve: Use JavaScript submission by default and as only way
+* Improve: Show form messages before submit button
+* Fix: Form not showing up the errors on frontend
+* Fix: Honeypot field
+
 = 1.1 =
 * New: Added support for Name field
 * New: Added support for GDPR consent
@@ -81,3 +90,6 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 = 1.1 =
 - Added new Name and GDPR fields and several bug fixes.
+
+= 1.2 =
+- Google Recaptcha support. Much improved form security & validations.
