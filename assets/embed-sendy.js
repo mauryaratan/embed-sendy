@@ -15,7 +15,7 @@
 			self.find( '.esd-form__response' ).remove();
 
 			let formData = $( this ).serialize();
-			formData += '&boolean=true&action=process_sendy';
+			formData += '&action=process_sendy';
 
 			$.ajax( {
 				method: 'POST',
