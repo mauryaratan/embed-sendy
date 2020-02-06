@@ -4,8 +4,8 @@
  * Plugin URI: https://github.com/mauryaratan/embed-sendy/
  * Description: Embed Sendy subscription form, through a widget, shortcode, or as a Gutenberg block.
  * Author: Ram Ratan Maurya
- * Author URI: https://mauryaratan.me
- * Version: 1.1
+ * Author URI: https://twitter.com/mauryaratan
+ * Version: 1.2
  * Text Domain: esd
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -161,7 +161,8 @@ final class Embed_Sendy {
 	public function embed_sendy_shortcode( $atts ) {
 		$atts = shortcode_atts(
 			array(
-				'list' => '',
+				'list'      => '',
+				'recaptcha' => '',
 			),
 			$atts,
 			'embed_sendy'
@@ -173,7 +174,13 @@ final class Embed_Sendy {
 
 		ob_start();
 
-		self::get_template( 'form-embed-sendy', array( 'list' => $atts['list'] ) );
+		self::get_template(
+			'form-embed-sendy',
+			array(
+				'list'      => $atts['list'],
+				'recaptcha' => $atts['recaptcha'],
+			)
+		);
 
 		return ob_get_clean();
 	}
@@ -530,6 +537,7 @@ final class Embed_Sendy {
  * The main function for that returns Embed_Sendy.
  *
  * @return object|Embed_Sendy
+ * @throws Exception
  */
 function ESD() { //@codingStandardsIgnoreLine
 	return Embed_Sendy::instance();

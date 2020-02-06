@@ -89,7 +89,7 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'id' => 'esd_recaptcha_key',
 			'type' => 'text',
 			'name' => __( 'Google Recaptcha Site Key', 'esd' ),
-			'desc' => __( 'If you\'re using Google Recaptcha for this list, please enter it here to enable Recaptcha.', 'esd' ),
+			'desc' => __( 'If you\'re using Google Recaptcha for this list, please enter it here to enable Recaptcha.<br>You can also use different key for each list with <strong>recaptcha</strong> attribute on shortcode.', 'esd' ),
 		)
 	);
 
