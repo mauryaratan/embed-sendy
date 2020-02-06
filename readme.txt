@@ -3,7 +3,7 @@ Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
 Tested up to: 5.2.3
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -60,6 +60,9 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix: Error on activation if options are empty, show a notice instead.
+
 = 1.2 =
 * New: Added support for Google Recaptcha 🎉
 * Improve: Much improved form validation and security
@@ -93,3 +96,6 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 = 1.2 =
 - Google Recaptcha support. Much improved form security & validations.
+
+= 1.2.1 =
+- Fixes an error activation
