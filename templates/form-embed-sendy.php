@@ -36,6 +36,8 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 	$class .= ' esd-form--show-name';
 }
 
+$recaptcha = $esd_settings['esd_recaptcha_key'];
+
 ?>
 
 <?php do_action( 'embed_sendy_form_before', $list ); ?>
@@ -55,6 +57,11 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 			<input type="checkbox" id="gdpr" name="gdpr" required>
 			<label for="gdpr"><?php echo esc_html( $gdpr_text ); ?></label>
 		</div>
+		<?php endif; ?>
+
+		<?php if ( $recaptcha && '' !== $recaptcha ) : ?>
+			<p class="g-recaptcha" data-sitekey="<?php echo esc_attr( $recaptcha ); ?>"></p>
+			<input type="hidden" name="subform" value="yes" />
 		<?php endif; ?>
 
 		<div style="display:none;">

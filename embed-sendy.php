@@ -39,6 +39,7 @@ final class Embed_Sendy {
 	 *
 	 * Insures that only one instance of Easy_Digital_Downloads exists in memory at any one
 	 * time. Also prevents needing to define globals all over the place.
+	 *
 	 * @throws Exception
 	 */
 	public static function instance() {
@@ -48,11 +49,11 @@ final class Embed_Sendy {
 			self::$instance->includes();
 
 			self::$sendy_api = new \SENDY\API(
-				[
+				array(
 					'sendyUrl' => self::get_option( 'esd_url' ),
 					'listId'   => self::get_option( 'esd_default_list' ),
 					'apiKey'   => self::get_option( 'esd_sendy_api' ),
-				]
+				)
 			);
 
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
@@ -128,7 +129,16 @@ final class Embed_Sendy {
 			wp_enqueue_style( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.css', array(), ESD_VERSION, 'screen' );
 		}
 
-		wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', array( 'jquery' ), ESD_VERSION, true );
+		wp_register_script( 'google-recaptcha-v2', 'https://www.google.com/recaptcha/api.js', array(), ESD_VERSION, true );
+
+		$deps = array( 'jquery' );
+
+		$recaptcha = self::get_option( 'esd_recaptcha_key' );
+		if ( $recaptcha && '' !== $recaptcha ) {
+			$deps[] = 'google-recaptcha-v2';
+		}
+
+		wp_enqueue_script( 'embed-sendy', ESD_PLUGIN_URL . 'assets/embed-sendy.js', $deps, ESD_VERSION, true );
 
 		wp_localize_script(
 			'embed-sendy',
@@ -137,6 +147,7 @@ final class Embed_Sendy {
 				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 				'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
 				'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
+				'recaptchaFailed'  => __( 'Incorrect Captcha', 'esd' ),
 			)
 		);
 	}
@@ -197,7 +208,7 @@ final class Embed_Sendy {
 		$lists = self::get_option( 'esd_lists' );
 
 		if ( $lists && is_array( $lists ) ) {
-			$new_list = [];
+			$new_list = array();
 
 			foreach ( $lists as $list ) {
 				$new_list[ $list[1] ] = $list[0];
@@ -218,7 +229,7 @@ final class Embed_Sendy {
 		$lists = self::get_option( 'esd_lists' );
 
 		if ( is_array( $lists ) ) {
-			$new_list = [];
+			$new_list = array();
 			$index    = 0;
 
 			foreach ( $lists as $list ) {
@@ -496,6 +507,15 @@ final class Embed_Sendy {
 			'gdpr'      => filter_var( wp_unslash( $_POST['gdpr'] ), FILTER_VALIDATE_BOOLEAN ),
 			'hp'        => wp_unslash( $_POST['hp'] ), // @codingStandardsIgnoreLine Passing this as it is intentionally
 		);
+
+		$recaptcha = ESD()::get_option( 'esd_recaptcha_key' );
+
+		if ( $recaptcha && '' !== $recaptcha ) {
+			$data += array(
+				'subform'              => wp_unslash( $_POST['subform'] ),
+				'g-recaptcha-response' => wp_unslash( $_POST['g-recaptcha-response'] ),
+			);
+		}
 
 		self::$sendy_api->setListId( filter_var( wp_unslash( $_POST['list'] ) ) );
 		$response = self::$sendy_api->subscribe( $data );

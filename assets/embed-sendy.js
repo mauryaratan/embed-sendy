@@ -1,10 +1,15 @@
-/* global esdSettings, jQuery */
+/* global esdSettings, jQuery, grecaptcha */
 ( function( $ ) {
 	$( document ).ready( function() {
 		$( '#js-esd-form' ).on( 'submit', function( e ) {
 			e.preventDefault();
 			e.stopPropagation();
 			const self = $( this );
+
+			if ( typeof grecaptcha !== 'undefined' && ! grecaptcha.getResponse() ) {
+				$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + esdSettings.recaptchaFailed + '</p>' ).insertBefore( self.find( '#submit' ) );
+				return;
+			}
 
 			if ( self.find( '#gdpr' ).is( ':checked' ) ) {
 				self.find( '#gdpr' ).val( 'true' );
@@ -55,6 +60,9 @@
 				} )
 				.always( function() {
 					self.find( 'input[type=submit]' ).removeAttr( 'disabled' );
+					if ( typeof grecaptcha !== 'undefined' ) {
+						grecaptcha.reset();
+					}
 				} );
 		} );
 	} );

@@ -86,6 +86,16 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
+			'id' => 'esd_recaptcha_key',
+			'type' => 'text',
+			'name' => __( 'Google Recaptcha Site Key', 'esd' ),
+			'desc' => __( 'If you\'re using Google Recaptcha for this list, please enter it here to enable Recaptcha.', 'esd' ),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
 			'id'      => 'esd_show_gdpr',
 			'type'    => 'checkbox',
 			'name'    => __( 'GDPR Enhancement', 'esd' ),
