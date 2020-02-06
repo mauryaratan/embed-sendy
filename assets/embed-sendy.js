@@ -30,8 +30,8 @@
 						return;
 					}
 
-					if ( res.success && res.success === false ) {
-						console.log( error );
+					if ( res.success === false ) {
+						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + res.data.message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
 						return;
 					}
 

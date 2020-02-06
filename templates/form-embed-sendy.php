@@ -40,10 +40,8 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 
 <?php do_action( 'embed_sendy_form_before', $list ); ?>
 
-<form id="js-esd-form" class="<?php echo esc_attr( $class ); ?>" action="<?php echo esc_url( $esd_settings['esd_url'] ); ?>/subscribe" method="post" target="_blank">
+<form id="js-esd-form" class="<?php echo esc_attr( $class ); ?>" action="<?php echo esc_url( $esd_settings['esd_url'] ); ?>/subscribe" method="post" target="_blank" accept-charset="utf-8">
 	<?php do_action( 'embed_sendy_form_start', $list ); ?>
-
-	<style>#antispam { display: none; }</style>
 
 	<div class="esd-form__row esd-form__fields">
 		<?php if ( ( 'on' === $show_name && ! $in_block ) || ( $in_block && $name ) ) : ?>
@@ -59,8 +57,12 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 		</div>
 		<?php endif; ?>
 
+		<div style="display:none;">
+			<label for="hp">HP</label><br/>
+			<input type="text" name="hp" id="hp"/>
+		</div>
+
 		<input type="submit" value="<?php esc_attr_e( 'Subscribe', 'esd' ); ?>">
-		<input type="text" name="antispam" id="antispam">
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
 		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
 		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">

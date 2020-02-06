@@ -464,10 +464,11 @@ final class Embed_Sendy {
 	public function process_sendy() {
 		check_ajax_referer( 'process_sendy' );
 
-		if ( isset( $_POST['antispam'] ) && '' !== $_POST['antispam'] ) {
+		if ( isset( $_POST['hp'] ) && '' !== $_POST['hp'] ) {
 			wp_send_json_error(
 				array(
 					'success' => false,
+					'message' => 'Invalid data received.',
 				)
 			);
 		}
@@ -480,6 +481,7 @@ final class Embed_Sendy {
 				'ipaddress' => $_POST['ipaddress'],
 				'referrer'  => $_POST['referrer'],
 				'gdpr'      => isset( $_POST['gdpr'] ) ? $_POST['gdpr'] : false,
+				'hp'        => wp_unslash( $_POST['hp'] ),
 			)
 		);
 
