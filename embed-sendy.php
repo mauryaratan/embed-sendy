@@ -467,7 +467,7 @@ final class Embed_Sendy {
 		if ( isset( $_POST['antispam'] ) && '' !== $_POST['antispam'] ) {
 			wp_send_json_error(
 				array(
-					'sucess' => false,
+					'success' => false,
 				)
 			);
 		}
