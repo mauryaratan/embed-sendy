@@ -62,7 +62,7 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 			<input type="text" name="hp" id="hp"/>
 		</div>
 
-		<input type="submit" value="<?php esc_attr_e( 'Subscribe', 'esd' ); ?>">
+		<input id="submit" type="submit" value="<?php esc_attr_e( 'Subscribe', 'esd' ); ?>">
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
 		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
 		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">

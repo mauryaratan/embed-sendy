@@ -1,7 +1,7 @@
 /* global esdSettings, jQuery */
 ( function( $ ) {
 	$( document ).ready( function() {
-		$( '.esd-form' ).on( 'submit', function( e ) {
+		$( '#js-esd-form' ).on( 'submit', function( e ) {
 			e.preventDefault();
 			e.stopPropagation();
 			const self = $( this );
@@ -26,19 +26,19 @@
 				.done( function( res ) {
 					if ( res.data && res.data.status === false ) {
 						const message = res.data.message || 'Some error occurred.';
-						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertBefore( self.find( '#submit' ) );
 						return;
 					}
 
 					if ( res.success === false ) {
-						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + res.data.message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + res.data.message + '</p>' ).insertBefore( self.find( '#submit' ) );
 						return;
 					}
 
 					if ( res.success && res.data.status ) {
 						const message = ( res.data.message === 'Already subscribed!' ) ? esdSettings.alreadySubscribed : esdSettings.successMessage;
 
-						$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+						$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + message + '</p>' ).insertBefore( self.find( '#submit' ) );
 					}
 				} )
 				.fail( function( data ) {
@@ -51,7 +51,7 @@
 						message = response;
 					}
 
-					$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertAfter( self.find( '.esd-form__fields' ) );
+					$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertBefore( self.find( '#submit' ) );
 				} )
 				.always( function() {
 					self.find( 'input[type=submit]' ).removeAttr( 'disabled' );
