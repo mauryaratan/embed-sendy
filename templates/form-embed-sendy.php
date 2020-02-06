@@ -36,7 +36,9 @@ if ( 'on' === $show_name || 'on' === $show_gdpr || $name || $gdpr ) {
 	$class .= ' esd-form--show-name';
 }
 
-$recaptcha = $esd_settings['esd_recaptcha_key'];
+if ( ! isset( $recaptcha ) || '' === $recaptcha ) {
+	$recaptcha = $esd_settings['esd_recaptcha_key'];
+}
 
 ?>
 
