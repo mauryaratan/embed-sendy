@@ -39,6 +39,7 @@ final class Embed_Sendy {
 	 *
 	 * Insures that only one instance of Easy_Digital_Downloads exists in memory at any one
 	 * time. Also prevents needing to define globals all over the place.
+	 * @throws Exception
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Embed_Sendy ) ) {
@@ -473,17 +474,26 @@ final class Embed_Sendy {
 			);
 		}
 
-		self::$sendy_api->setListId( $_POST['list'] );
-		$response = self::$sendy_api->subscribe(
-			array(
-				'name'      => isset( $_POST['name'] ) ? $_POST['name'] : false,
-				'email'     => $_POST['email'],
-				'ipaddress' => $_POST['ipaddress'],
-				'referrer'  => $_POST['referrer'],
-				'gdpr'      => isset( $_POST['gdpr'] ) ? $_POST['gdpr'] : false,
-				'hp'        => wp_unslash( $_POST['hp'] ),
-			)
+		if ( ! isset( $_POST['email'], $_POST['name'], $_POST['list'] ) ) {
+			wp_send_json_error(
+				array(
+					'success' => false,
+					'message' => 'Invalid parameters.',
+				)
+			);
+		}
+
+		$data = array(
+			'name'      => filter_var( wp_unslash( $_POST['name'] ) ),
+			'email'     => filter_var( wp_unslash( $_POST['email'] ), FILTER_VALIDATE_EMAIL ),
+			'ipaddress' => filter_var( wp_unslash( $_POST['ipaddress'] ), FILTER_VALIDATE_IP ),
+			'referrer'  => filter_var( wp_unslash( $_POST['referrer'] ), FILTER_VALIDATE_URL ),
+			'gdpr'      => filter_var( wp_unslash( $_POST['gdpr'] ), FILTER_VALIDATE_BOOLEAN ),
+			'hp'        => wp_unslash( $_POST['hp'] ), // @codingStandardsIgnoreLine Passing this as it is intentionally
 		);
+
+		self::$sendy_api->setListId( filter_var( wp_unslash( $_POST['list'] ) ) );
+		$response = self::$sendy_api->subscribe( $data );
 
 		wp_send_json_success( $response );
 
