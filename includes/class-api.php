@@ -4,7 +4,7 @@
  *
  * Sendy's API is not RESTful so having this wrapper is great.
  *
- * @version 2.3.0
+ * @version 4.0.0
  * @package Sendy
  * @since 1.0.0
  */
@@ -46,6 +46,7 @@ class API {
 		echo $output;
 		ob_end_flush();
 	}
+
 	/**
 	 * Installation URL.
 	 *
@@ -74,7 +75,7 @@ class API {
 	 * Constructor.
 	 *
 	 * @param Array $config Configuration.
-	 * @throws Exception PHP Exceptions.
+	 * @throws \Exception Without config params.
 	 * @since  1.0.0
 	 */
 	public function __construct( array $config ) {
@@ -84,35 +85,21 @@ class API {
 
 		// Bail if empty.
 		if ( empty( $this->sendyUrl ) || empty( $this->apiKey ) || empty( $this->listId ) ) {
-			add_action( 'admin_notices', [ $this, 'required_params__notice' ] );
+			throw new \Exception( 'Required config parameters [sendyUrl, listId, apiKey] is not set or empty', 1 );
 		}
-	}
-
-	/**
-	 * Shows an admin notice when the required parameters are not set.
-	 *
-	 * @since  @@
-	 * @return void
-	 */
-	public function required_params__notice() {
-		?>
-		<div class="notice notice-warning is-dismissible">
-			<p><strong><?php esc_html_e( 'Sendy URL, Sendy API Key & List ID is empty or not set yet! ', 'esd' ); ?><a href="<?php echo esc_url( get_admin_url() . 'options-general.php?page=embed_sendy' ); ?>"><?php esc_html_e( 'Please configure them.', 'esd' ); ?></a></strong></p>
-		</div>
-		<?php
 	}
 
 	/**
 	 * Set List ID.
 	 *
 	 * @param String $listId List ID.
-	 * @throws Exception PHP Exceptions.
+	 * @throws \Exception On missing List ID.
 	 * @since  1.0.0
 	 */
 	public function setListId( $listId ) {
 		// Bail if empty.
 		if ( empty( $listId ) ) {
-			throw new Exception( 'Required config parameter [listId] is not set', 1 );
+			throw new \Exception( 'Required config parameter [listId] is not set', 1 );
 		}
 
 		// Set the ID.
@@ -213,7 +200,6 @@ class API {
 		$apiResponse = $this->query(
 			$route, [
 				'email'   => $email,
-				'api_key' => $this->apiKey,
 				'list_id' => $this->listId,
 			]
 		);
@@ -250,7 +236,6 @@ class API {
 			$this->query(
 				$route, [
 					'email'   => $email,
-					'api_key' => $this->apiKey,
 					'list_id' => $this->listId,
 				]
 			)
@@ -287,13 +272,12 @@ class API {
 
 		// Handle exceptions.
 		if ( empty( $list ) ) {
-			throw new Exception( "Method [subCount] requires parameter [list] or [$this->listId] to be set.", 1 );
+			throw new \Exception( "Method [subCount] requires parameter [list] or [$this->listId] to be set.", 1 );
 		}
 
 		// Send request for subCount.
 		$apiResponse = $this->query(
 			$route, [
-				'api_key' => $this->apiKey,
 				'list_id' => $list,
 			]
 		);
@@ -318,14 +302,6 @@ class API {
 		// Route.
 		$route = 'api/campaigns/create.php';
 
-		// Global options.
-		$defualtOptions = [
-			'api_key' => $this->apiKey,
-		];
-
-		// Merge the passed in values with the global options.
-		$values = array_merge( $defualtOptions, $values );
-
 		// Send request for campaign.
 		$apiResponse = $this->query( $route, $values );
 
@@ -345,25 +321,26 @@ class API {
 	 *
 	 * Build and Send the query via CURL.
 	 *
-	 * @throws Exception PHP Exceptions.
 	 * @param  String $route API Route.
 	 * @param  Array  $values Parameters.
+	 * @throws \Exception On missing params.
 	 * @return String
 	 * @since  1.0.0
 	 */
 	private function query( $route, array $values ) {
 		// Bail if empty.
 		if ( empty( $route ) || empty( $values ) ) {
-			throw new Exception( 'Required config parameter [route, values] is not set or empty', 1 );
+			throw new \Exception( 'Required config parameter [route, values] is not set or empty', 1 );
 		}
 
 		// Global options for return.
 		$returnOptions = array(
+			'api_key' => $this->apiKey,
 			'list'    => $this->listId,
 			'boolean' => 'true',
 		);
 
-		// Merge the passed in values with the options for return.
+		// Merge $values with the global options $returnOptions (overwrites default $values).
 		$content = array_merge( $values, $returnOptions );
 
 		// Build a query using the $content.
@@ -380,7 +357,7 @@ class API {
 			// Let's cURL.
 			// phpcs:disable -- not WP.
 			$ch = curl_init( $postUrl );
-			// Settings to disable SSL verification for testing.
+			// Optionally enable this for SSL verification.
 			// curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
 			// curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
 			curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/x-www-form-urlencoded' ) );
