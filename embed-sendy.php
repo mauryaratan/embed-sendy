@@ -6,7 +6,7 @@
  * Author: Ram Ratan Maurya
  * Author URI: https://twitter.com/mauryaratan
  * Version: 1.2.1
- * Text Domain: esd
+ * Text Domain: embed-sendy
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  *
@@ -64,8 +64,8 @@ final class Embed_Sendy {
 							<?php
 								echo sprintf(
 									/* translators: %s: settings link. */
-									esc_html__( 'Embed Sendy is not working yet, please enter plugin %s.', 'esd' ),
-									'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . esc_html__( 'settings', 'esd' ) . '</a>'
+									esc_html__( 'Embed Sendy is not working yet, please enter plugin %s.', 'embed-sendy' ),
+									'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . esc_html__( 'settings', 'embed-sendy' ) . '</a>'
 								);
 							?>
 							</p>
@@ -169,7 +169,7 @@ final class Embed_Sendy {
 				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 				'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
 				'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
-				'recaptchaFailed'  => __( 'Incorrect Captcha', 'esd' ),
+				'recaptchaFailed'  => __( 'Incorrect Captcha', 'embed-sendy' ),
 			)
 		);
 	}
@@ -470,7 +470,7 @@ final class Embed_Sendy {
 	public function plugin_action_links( $links ) {
 		$links = array_merge(
 			array(
-				'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . __( 'Settings', 'esd' ) . '</a>',
+				'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . __( 'Settings', 'embed-sendy' ) . '</a>',
 			),
 			$links
 		);
@@ -484,7 +484,7 @@ final class Embed_Sendy {
 	 * @return void
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'esd', false, basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'embed-sendy', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
 	public function get_default( $key ) {
@@ -505,7 +505,7 @@ final class Embed_Sendy {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => __( 'Invalid data received.', 'esd' ),
+					'message' => __( 'Invalid data received.', 'embed-sendy' ),
 				)
 			);
 		}
@@ -514,7 +514,7 @@ final class Embed_Sendy {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => __( 'Invalid parameters.', 'esd' ),
+					'message' => __( 'Invalid parameters.', 'embed-sendy' ),
 				)
 			);
 		}
@@ -523,7 +523,7 @@ final class Embed_Sendy {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => __( 'Invalid email provided', 'esd' ),
+					'message' => __( 'Invalid email provided', 'embed-sendy' ),
 				)
 			);
 		}

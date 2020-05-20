@@ -434,7 +434,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 				foreach ( $value_raw as $row ) {
 					$html .= '<p class="dynamic-field-row">';
 					foreach ( $row as $inner_row ) {
-						$html .= sprintf( '<input type="text" data-index="%7$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s][%7$s][]" value="%5$s" />', $type, $size, $args['section'], $args['id'], $inner_row, __( 'List name', 'esd' ), $index );
+						$html .= sprintf( '<input type="text" data-index="%7$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s][%7$s][]" value="%5$s" />', $type, $size, $args['section'], $args['id'], $inner_row, __( 'List name', 'embed-sendy' ), $index );
 					}
 					$html .= '<span class="remove-field js-esd-remove dashicons dashicons-trash button button-link-delete"></span>';
 					$html .= '</p>';
@@ -442,7 +442,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 				}
 			}
 
-			$html .= '<a href="#" style="margin-top:10px" data-setting-id="' . $args['id'] . '" data-setting-section="' . $args['section'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'esd' ) . '</a>';
+			$html .= '<a href="#" style="margin-top:10px" data-setting-id="' . $args['id'] . '" data-setting-section="' . $args['section'] . '" id="esd_add_list" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align:middle"></span>' . esc_html__( 'Add list', 'embed-sendy' ) . '</a>';
 
 			echo $html;
 		}
@@ -742,8 +742,8 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 		public function admin_menu() {
 			add_submenu_page(
 				'options-general.php',
-				__( 'Embed Sendy', 'esd' ),
-				__( 'Embed Sendy', 'esd' ),
+				__( 'Embed Sendy', 'embed-sendy' ),
+				__( 'Embed Sendy', 'embed-sendy' ),
 				'manage_options',
 				'embed_sendy',
 				array( $this, 'plugin_page' )
@@ -752,7 +752,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 
 		public function plugin_page() {
 			echo '<div class="wrap">';
-			echo '<h1>' . esc_html__( 'Embed Sendy Settings', 'esd' ) . '</h1>';
+			echo '<h1>' . esc_html__( 'Embed Sendy Settings', 'embed-sendy' ) . '</h1>';
 			$this->show_navigation();
 			$this->show_forms();
 			echo '</div>';
