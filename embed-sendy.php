@@ -54,7 +54,9 @@ final class Embed_Sendy {
 				'apiKey'   => self::get_option( 'esd_sendy_api' ),
 			);
 
-			if ( in_array( null, $config, true ) || in_array( '', $config, true ) ) {
+			try {
+				self::$sendy_api = new \SENDY\API( $config );
+			} catch ( Exception $e ) {
 				add_action(
 					'admin_notices',
 					function() {
@@ -75,8 +77,6 @@ final class Embed_Sendy {
 				);
 				return;
 			}
-
-			self::$sendy_api = new \SENDY\API( $config );
 
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
