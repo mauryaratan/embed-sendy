@@ -212,7 +212,7 @@ final class Embed_Sendy {
 	 *
 	 * @param string $key Settings ID.
 	 * @param string $section Section ID.
-	 * @return array
+	 * @return mixed Returns value if found or false.
 	 */
 	public static function get_option( $key, $section = 'esd_settings' ) {
 		$settings = get_option( $section );
