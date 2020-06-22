@@ -217,15 +217,11 @@ final class Embed_Sendy {
 	public static function get_option( $key, $section = 'esd_settings' ) {
 		$settings = get_option( $section );
 
-		if ( ! is_array( $settings ) ) {
-			return false;
-		}
-
-		if ( array_key_exists( $key, $settings ) && '' !== $key ) {
+		if ( is_array( $settings ) && array_key_exists( $key, $settings ) ) {
 			return $settings[ $key ];
 		}
 
-		return false;
+		return ESD()->get_default( $key );
 	}
 
 	/**
@@ -495,7 +491,8 @@ final class Embed_Sendy {
 			'esd_form_header'        => '<h3>Join our newsletter</h3>',
 			'esd_form_footer'        => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
 		);
-		return $messages[ $key ];
+
+		return isset( $messages[ $key ] ) ? $messages[ $key ] : false;
 	}
 
 	public function process_sendy() {
