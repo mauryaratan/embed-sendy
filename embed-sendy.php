@@ -43,8 +43,8 @@ final class Embed_Sendy {
 	 * @throws Exception
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Embed_Sendy ) ) {
-			self::$instance = new Embed_Sendy();
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
+			self::$instance = new self();
 			self::$instance->setup_constants();
 			self::$instance->includes();
 
@@ -196,7 +196,7 @@ final class Embed_Sendy {
 
 		ob_start();
 
-		self::get_template(
+		$this->get_template(
 			'form-embed-sendy',
 			array(
 				'list'      => $atts['list'],
