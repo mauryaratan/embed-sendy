@@ -3,7 +3,7 @@ Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
 Tested up to: 5.4.2
-Stable tag: 1.3
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -61,7 +61,7 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 
 == Changelog ==
 
-= 1.3 =
+= 1.3.0 =
 * New: Options to customize form field labels
 * New: Added uninstall.php to remove plugin options on uninstall
 * Fix: Error on plugin activation for first time (props @ebinnion)
