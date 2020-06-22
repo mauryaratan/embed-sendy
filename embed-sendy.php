@@ -507,7 +507,7 @@ final class Embed_Sendy {
 			);
 		}
 
-		if ( ! isset( $_POST['email'], $_POST['name'], $_POST['list'] ) ) {
+		if ( ! isset( $_POST['email'], $_POST['list'] ) ) {
 			wp_send_json_error(
 				array(
 					'success' => false,
@@ -526,7 +526,7 @@ final class Embed_Sendy {
 		}
 
 		$data = array(
-			'name'      => filter_var( wp_unslash( $_POST['name'] ) ),
+			'name'      => isset( $_POST['name'] ) ? filter_var( wp_unslash( $_POST['name'] ) ) : '',
 			'email'     => filter_var( wp_unslash( $_POST['email'] ), FILTER_VALIDATE_EMAIL ),
 			'ipaddress' => filter_var( wp_unslash( $_POST['ipaddress'] ), FILTER_VALIDATE_IP ),
 			'referrer'  => filter_var( wp_unslash( $_POST['referrer'] ), FILTER_VALIDATE_URL ),
