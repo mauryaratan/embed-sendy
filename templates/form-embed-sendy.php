@@ -18,10 +18,20 @@ $gdpr_text = isset( $esd_settings['esd_gdpr_text'] ) ? $esd_settings['esd_gdpr_t
 
 global $wp;
 $user = false;
+$name = '';
 
 if ( is_user_logged_in() ) {
-	$user = get_userdata( get_current_user_id() );
-	$user = $user->data;
+	$user = new \WP_User( get_current_user_id() );
+
+	if ( $user->first_name && '' !== $user->first_name ) {
+		$name = $user->first_name;
+
+		if ( $user->last_name && '' !== $user->last_name ) {
+			$name .= ' ' . $user->last_name;
+		}
+	} else {
+		$name = $user->data->display_name;
+	}
 }
 
 $class = 'esd-form';
@@ -49,7 +59,7 @@ if ( ! isset( $recaptcha ) || '' === $recaptcha ) {
 
 	<div class="esd-form__row esd-form__fields">
 		<?php if ( ( 'on' === $show_name && ! $in_block ) || ( $in_block && $name ) ) : ?>
-		<input type="text" name="name" placeholder="<?php esc_attr_e( 'Name', 'embed-sendy' ); ?>" value="<?php echo esc_attr( $user->display_name ); ?>">
+		<input type="text" name="name" placeholder="<?php esc_attr_e( 'Name', 'embed-sendy' ); ?>" value="<?php echo esc_attr( $name ); ?>">
 		<?php endif; ?>
 
 		<input type="email" name="email" placeholder="<?php esc_attr_e( 'Email', 'embed-sendy' ); ?>" value="<?php echo ( $user ) ? esc_attr( $user->user_email ) : ''; ?>" required>
