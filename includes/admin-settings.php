@@ -187,4 +187,43 @@ if ( class_exists( 'WP_OSA' ) ) {
 			'default' => ESD()->get_default( 'esd_form_footer' ),
 		)
 	);
+
+	$wposa_obj->add_field(
+		'esd_form_settings',
+		array(
+			'id'   => 'esd_form_labels_desc',
+			'type' => 'title',
+			'name' => __( 'Form Labels', 'embed-sendy' ),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_form_settings',
+		array(
+			'id'      => 'esd_label_name',
+			'type'    => 'text',
+			'name'    => __( 'Name', 'embed-sendy' ),
+			'default' => ESD()->get_default( 'esd_label_name' ),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_form_settings',
+		array(
+			'id'      => 'esd_label_email',
+			'type'    => 'text',
+			'name'    => __( 'Email', 'embed-sendy' ),
+			'default' => ESD()->get_default( 'esd_label_email' ),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_form_settings',
+		array(
+			'id'      => 'esd_label_submit',
+			'type'    => 'text',
+			'name'    => __( 'Submit', 'embed-sendy' ),
+			'default' => ESD()->get_default( 'esd_label_submit' ),
+		)
+	);
 }

@@ -490,6 +490,9 @@ final class Embed_Sendy {
 			'esd_already_subscribed' => 'You are already subscribed to this list.',
 			'esd_form_header'        => '<h3>Join our newsletter</h3>',
 			'esd_form_footer'        => '<p>No spam. Ever!</p><p>You can unsubscribe any time — obviously.</p>',
+			'esd_label_name'         => 'Name',
+			'esd_label_email'        => 'Email',
+			'esd_label_submit'       => 'Subscribe',
 		);
 
 		return isset( $messages[ $key ] ) ? $messages[ $key ] : false;
