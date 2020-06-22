@@ -2,8 +2,8 @@
 Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
-Tested up to: 5.2.3
-Stable tag: 1.2.1
+Tested up to: 5.4.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -16,6 +16,7 @@ Embed Sendy allows you to embed subscription forms for [Sendy](https://codest.ag
 
 = Features =
 * **NEW**: Added Google Recaptcha support
+* **NEW**: Customize Form Field Labels
 * Support multiple lists, so you can offer subscription for different lists in different scenarios
 * AJAX submission for forms, option to enable/disable
 * Comes with default form styles, with option to disable
@@ -59,6 +60,15 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 4. Embed Sendy Gutenberg block.
 
 == Changelog ==
+
+= 1.3 =
+* New: Options to customize form field labels
+* New: Added uninstall.php to remove plugin options on uninstall
+* Fix: Error on plugin activation for first time (props @ebinnion)
+* Fix: Ensure default option for setting is always returned
+* Fix: Make name field optional during submission
+* Improve: Change translation domain to match plugin slug (props @Tomáš Jenej)
+* Improve: Display full name in name field instead of username for logged-in users
 
 = 1.2.1 =
 * Fix: Error on activation if options are empty, show a notice instead.
