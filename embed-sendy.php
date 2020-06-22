@@ -5,7 +5,7 @@
  * Description: Embed Sendy subscription form, through a widget, shortcode, or as a Gutenberg block.
  * Author: Ram Ratan Maurya
  * Author URI: https://twitter.com/mauryaratan
- * Version: 1.2
+ * Version: 1.2.1
  * Text Domain: esd
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -48,13 +48,35 @@ final class Embed_Sendy {
 			self::$instance->setup_constants();
 			self::$instance->includes();
 
-			self::$sendy_api = new \SENDY\API(
-				array(
-					'sendyUrl' => self::get_option( 'esd_url' ),
-					'listId'   => self::get_option( 'esd_default_list' ),
-					'apiKey'   => self::get_option( 'esd_sendy_api' ),
-				)
+			$config = array(
+				'sendyUrl' => self::get_option( 'esd_url' ),
+				'listId'   => self::get_option( 'esd_default_list' ),
+				'apiKey'   => self::get_option( 'esd_sendy_api' ),
 			);
+
+			if ( in_array( null, $config, true ) || in_array( '', $config, true ) ) {
+				add_action(
+					'admin_notices',
+					function() {
+						?>
+						<div class="notice notice-error is-dismissible">
+							<p>
+							<?php
+								echo sprintf(
+									/* translators: %s: settings link. */
+									esc_html__( 'Embed Sendy is not working yet, please enter plugin %s.', 'esd' ),
+									'<a href="' . esc_url( admin_url( 'options-general.php?page=embed_sendy' ) ) . '">' . esc_html__( 'settings', 'esd' ) . '</a>'
+								);
+							?>
+							</p>
+						</div>
+						<?php
+					}
+				);
+				return;
+			}
+
+			self::$sendy_api = new \SENDY\API( $config );
 
 			add_shortcode( 'embed_sendy', array( self::$instance, 'embed_sendy_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array( self::$instance, 'frontend_scripts' ) );
