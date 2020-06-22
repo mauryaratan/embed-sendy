@@ -22,7 +22,7 @@ class Embed_Sendy_Widget extends WP_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		parent::__construct( 'embed_sendy_widget', __( 'Embed Sendy', 'esd' ), array( 'description' => __( 'Displays a subscription form for Embed Sendy.', 'esd' ) ) );
+		parent::__construct( 'embed_sendy_widget', __( 'Embed Sendy', 'embed-sendy' ), array( 'description' => __( 'Displays a subscription form for Embed Sendy.', 'embed-sendy' ) ) );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Embed_Sendy_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>"><?php esc_html_e( 'Mailing List:', 'esd' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>"><?php esc_html_e( 'Mailing List:', 'embed-sendy' ); ?></label>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'list' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>">
 			<?php
 			if ( false !== ESD()->get_lists() ) :
@@ -96,7 +96,7 @@ class Embed_Sendy_Widget extends WP_Widget {
 		</p>
 
 		<?php /* translators: %s: refers to link to plugin settings. */ ?>
-		<p><?php echo sprintf( __( 'See <a href="%s">Embed Sendy settings</a> to customize form display settings.', 'esd' ), admin_url( 'options-general.php?page=embed_sendy' ) ); // WPCS: XSS ok. ?></p>
+		<p><?php echo sprintf( __( 'See <a href="%s">Embed Sendy settings</a> to customize form display settings.', 'embed-sendy' ), admin_url( 'options-general.php?page=embed_sendy' ) ); // WPCS: XSS ok. ?></p>
 
 		<?php
 	}

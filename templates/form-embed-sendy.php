@@ -49,10 +49,10 @@ if ( ! isset( $recaptcha ) || '' === $recaptcha ) {
 
 	<div class="esd-form__row esd-form__fields">
 		<?php if ( ( 'on' === $show_name && ! $in_block ) || ( $in_block && $name ) ) : ?>
-		<input type="text" name="name" placeholder="<?php esc_attr_e( 'Name', 'esd' ); ?>" value="<?php echo esc_attr( $user->display_name ); ?>">
+		<input type="text" name="name" placeholder="<?php esc_attr_e( 'Name', 'embed-sendy' ); ?>" value="<?php echo esc_attr( $user->display_name ); ?>">
 		<?php endif; ?>
 
-		<input type="email" name="email" placeholder="<?php esc_attr_e( 'Email', 'esd' ); ?>" value="<?php echo ( $user ) ? esc_attr( $user->user_email ) : ''; ?>" required>
+		<input type="email" name="email" placeholder="<?php esc_attr_e( 'Email', 'embed-sendy' ); ?>" value="<?php echo ( $user ) ? esc_attr( $user->user_email ) : ''; ?>" required>
 
 		<?php if ( ( 'on' === $show_gdpr && ! $in_block ) || ( $in_block && $gdpr ) ) : ?>
 		<div class="gdpr-row">
@@ -71,7 +71,7 @@ if ( ! isset( $recaptcha ) || '' === $recaptcha ) {
 			<input type="text" name="hp" id="hp"/>
 		</div>
 
-		<input id="submit" type="submit" value="<?php esc_attr_e( 'Subscribe', 'esd' ); ?>">
+		<input id="submit" type="submit" value="<?php esc_attr_e( 'Subscribe', 'embed-sendy' ); ?>">
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
 		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
 		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">
