@@ -4,7 +4,7 @@
  *
  * Sendy's API is not RESTful so having this wrapper is great.
  *
- * @version 4.0.0
+ * @version 6.0.0
  * @package Sendy
  * @since 1.0.0
  */
@@ -33,8 +33,8 @@ class API {
 	 *
 	 * Log the response to console for better readability.
 	 *
-	 * @param String $context Context.
 	 * @param Mixed  $data Any data.
+	 * @param String $context Context.
 	 * @since 1.0.0
 	 */
 	public static function it( $data, $context = 'LOGGED: ' ) {

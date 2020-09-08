@@ -533,7 +533,7 @@ final class Embed_Sendy {
 			'email'     => filter_var( wp_unslash( $_POST['email'] ), FILTER_VALIDATE_EMAIL ),
 			'ipaddress' => filter_var( wp_unslash( $_POST['ipaddress'] ), FILTER_VALIDATE_IP ),
 			'referrer'  => filter_var( wp_unslash( $_POST['referrer'] ), FILTER_VALIDATE_URL ),
-			'gdpr'      => filter_var( wp_unslash( $_POST['gdpr'] ), FILTER_VALIDATE_BOOLEAN ),
+			'gdpr'      => wp_unslash( $_POST['gdpr'] ),
 			'hp'        => wp_unslash( $_POST['hp'] ), // @codingStandardsIgnoreLine Passing this as it is intentionally
 		);
 
