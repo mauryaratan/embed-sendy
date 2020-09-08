@@ -5,7 +5,7 @@
  * Description: Embed Sendy subscription form, through a widget, shortcode, or as a Gutenberg block.
  * Author: Ram Ratan Maurya
  * Author URI: https://twitter.com/mauryaratan
- * Version: 1.3.0
+ * Version: 1.3.1
  * Text Domain: embed-sendy
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -106,7 +106,7 @@ final class Embed_Sendy {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'ESD_VERSION' ) ) {
-			define( 'ESD_VERSION', '1.3.0' );
+			define( 'ESD_VERSION', '1.3.1' );
 		}
 
 		// Plugin Folder Path.

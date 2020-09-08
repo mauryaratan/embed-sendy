@@ -2,8 +2,8 @@
 Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
-Tested up to: 5.4.2
-Stable tag: 1.3.0
+Tested up to: 5.5.1
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.4
@@ -60,6 +60,10 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 4. Embed Sendy Gutenberg block.
 
 == Changelog ==
+
+= 1.3.1 =
+* Fix: GDPR field always returning false
+* Fix: Fix undefined notice when GDPR field is off
 
 = 1.3.0 =
 * New: Options to customize form field labels
