@@ -169,7 +169,7 @@ final class Embed_Sendy {
 				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
 				'successMessage'    => self::get_option( 'esd_success', 'esd_form_settings' ),
 				'alreadySubscribed' => self::get_option( 'esd_already_subscribed', 'esd_form_settings' ),
-				'recaptchaFailed'  => __( 'Incorrect Captcha', 'embed-sendy' ),
+				'recaptchaFailed'   => __( 'Incorrect Captcha', 'embed-sendy' ),
 			)
 		);
 	}
@@ -373,8 +373,7 @@ final class Embed_Sendy {
 				set_transient( 'esd_subscribers_' . $list, $subscribers, DAY_IN_SECONDS );
 			}
 		}
-
-		return number_format_i18n( $subscribers );
+		return is_numeric( $subscribers ) ? number_format_i18n( $subscribers ) : 0;
 	}
 
 	/**
