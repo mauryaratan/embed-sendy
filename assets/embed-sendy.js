@@ -7,7 +7,7 @@
 			const self = $( this );
 
 			if ( typeof grecaptcha !== 'undefined' && ! grecaptcha.getResponse() ) {
-				$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + esdSettings.recaptchaFailed + '</p>' ).insertBefore( self.find( '#submit' ) );
+				$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + esdSettings.recaptchaFailed + '</p>' ).insertBefore( self.find( '#es-submit' ) );
 				return;
 			}
 
@@ -31,19 +31,19 @@
 				.done( function( res ) {
 					if ( res.data && res.data.status === false ) {
 						const message = res.data.message || 'Some error occurred.';
-						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertBefore( self.find( '#submit' ) );
+						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertBefore( self.find( '#es-submit' ) );
 						return;
 					}
 
 					if ( res.success === false ) {
-						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + res.data.message + '</p>' ).insertBefore( self.find( '#submit' ) );
+						$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + res.data.message + '</p>' ).insertBefore( self.find( '#es-submit' ) );
 						return;
 					}
 
 					if ( res.success && res.data.status ) {
 						const message = ( res.data.message === 'Already subscribed!' ) ? esdSettings.alreadySubscribed : esdSettings.successMessage;
 
-						$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + message + '</p>' ).insertBefore( self.find( '#submit' ) );
+						$( '<p class="esd-form__row esd-form__response esd-form__response--success">' + message + '</p>' ).insertBefore( self.find( '#es-submit' ) );
 					}
 				} )
 				.fail( function( data ) {
@@ -56,7 +56,7 @@
 						message = response;
 					}
 
-					$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertBefore( self.find( '#submit' ) );
+					$( '<p class="esd-form__row esd-form__response esd-form__response--error">Error: ' + message + '</p>' ).insertBefore( self.find( '#es-submit' ) );
 				} )
 				.always( function() {
 					self.find( 'input[type=submit]' ).removeAttr( 'disabled' );
