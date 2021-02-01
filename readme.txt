@@ -2,11 +2,11 @@
 Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
-Tested up to: 5.5.1
-Stable tag: 1.3.1
+Tested up to: 5.6
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 5.4
+Requires PHP: 5.6
 Tags: sendy, embed, subscription form, gutenberg, widget, shortcode, codestag, mauryaratan
 
 Embed Sendy subscription form, through a widget, shortcode, or as a Gutenberg block.
@@ -60,6 +60,11 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 4. Embed Sendy Gutenberg block.
 
 == Changelog ==
+
+= 1.3.2 =
+* Fix: Conflict with commit submit button ID on single posts/pages
+* Fix: Incorrect type when returning subscribers (props @AdelDima)
+* Improvements: PHP7.4 compatibility
 
 = 1.3.1 =
 * Fix: GDPR field always returning false
