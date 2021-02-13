@@ -1,4 +1,9 @@
 /* global esdSettings, jQuery, grecaptcha */
+
+function esOnSubmit() {
+	jQuery( '#js-esd-form' ).submit();
+}
+
 ( function( $ ) {
 	$( document ).ready( function() {
 		$( '#js-esd-form' ).on( 'submit', function( e ) {

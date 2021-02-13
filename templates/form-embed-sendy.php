@@ -24,6 +24,13 @@ global $wp;
 $user      = false;
 $name_text = '';
 
+$recaptcha_v3 = ( isset( $esd_settings['esd_recaptcha_key_v3'] ) && '' !== $esd_settings['esd_recaptcha_key_v3'] ) ? $esd_settings['esd_recaptcha_key_v3'] : false;
+
+$input_attrs = '';
+if ( $recaptcha_v3 ) {
+	$input_attrs .= 'class="g-recaptcha" data-sitekey="' . esc_attr( $recaptcha_v3 ) . '" data-callback="esOnSubmit" data-action="submit"';
+}
+
 if ( is_user_logged_in() ) {
 	$user = new \WP_User( get_current_user_id() );
 
@@ -75,7 +82,7 @@ if ( ! isset( $recaptcha ) || '' === $recaptcha ) {
 		</div>
 		<?php endif; ?>
 
-		<?php if ( $recaptcha && '' !== $recaptcha ) : ?>
+		<?php if ( ! $recaptcha_v3 && $recaptcha && '' !== $recaptcha ) : ?>
 			<p class="g-recaptcha" data-sitekey="<?php echo esc_attr( $recaptcha ); ?>"></p>
 			<input type="hidden" name="subform" value="yes" />
 		<?php endif; ?>
@@ -85,7 +92,7 @@ if ( ! isset( $recaptcha ) || '' === $recaptcha ) {
 			<input type="text" name="hp" id="hp"/>
 		</div>
 
-		<input id="es-submit" type="submit" value="<?php echo ESD()::get_option( 'esd_label_submit', 'esd_form_settings' ); ?>">
+		<input id="es-submit" type="submit" value="<?php echo ESD()::get_option( 'esd_label_submit', 'esd_form_settings' ); ?>" <?php echo $input_attrs; ?> />
 		<input type="hidden" name="list" value="<?php echo esc_attr( $list ); ?>">
 		<input type="hidden" name="ipaddress" value="<?php echo esc_attr( ESD()->ip_address() ); ?>">
 		<input type="hidden" name="referrer" value="<?php echo esc_url( home_url( $wp->request ) ); ?>">
