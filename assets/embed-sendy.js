@@ -16,6 +16,9 @@ function esOnSubmit() {
 				return;
 			}
 
+			const submitButtonText = self.find( 'input[type=submit]' ).val();
+			self.find( 'input[type=submit]' ).val("...");
+
 			if ( self.find( '#gdpr' ).is( ':checked' ) ) {
 				self.find( '#gdpr' ).val( 'true' );
 			}
@@ -65,6 +68,7 @@ function esOnSubmit() {
 				} )
 				.always( function() {
 					self.find( 'input[type=submit]' ).removeAttr( 'disabled' );
+					self.find( 'input[type=submit]' ).val(submitButtonText);
 					if ( typeof grecaptcha !== 'undefined' ) {
 						grecaptcha.reset();
 					}
