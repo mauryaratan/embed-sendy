@@ -537,8 +537,9 @@ final class Embed_Sendy {
 		);
 
 		$recaptcha = ESD()::get_option( 'esd_recaptcha_key' );
+		$recaptcha_v3 = ESD()::get_option( 'esd_recaptcha_key_v3' );
 
-		if ( $recaptcha && '' !== $recaptcha ) {
+		if ( ! $recaptcha_v3 && $recaptcha && '' !== $recaptcha ) {
 			$data += array(
 				'subform'              => wp_unslash( $_POST['subform'] ),
 				'g-recaptcha-response' => wp_unslash( $_POST['g-recaptcha-response'] ),
