@@ -424,15 +424,16 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 			$size  = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 			$type  = isset( $args['type'] ) ? $args['type'] : 'text';
 
-			$html .= '<table class="esd-table" border="0" cellpadding="0" cellspacing="0"><tbody><tr>';
+			$html .= '<table class="esd-table" border="0" cellpadding="0" cellspacing="0"><thead><tr>';
 			$html .= '<td>List Name</td>';
 			$html .= '<td>List ID</td>';
-			$html .= '</tr></tbody></table>';
+			$html .= '</tr></thead></table>';
 
 			$index = 0;
 			if ( is_array( $value_raw ) ) {
 				foreach ( $value_raw as $row ) {
 					$html .= '<p class="dynamic-field-row">';
+					$html .= '<span class="id-label" data-tooltip="' . __( 'Used in shortcode to subscribe to specific list.', 'embed-sendy' ) . '"><em>' . __( 'ID:', 'embed-sendy' ) . ' </em>' . ( $index + 1 ) . '</span>';
 					foreach ( $row as $inner_row ) {
 						$html .= sprintf( '<input type="text" data-index="%7$s" class="%2$s-text" id="%3$s[%4$s]" name="%3$s[%4$s][%7$s][]" value="%5$s" />', $type, $size, $args['section'], $args['id'], $inner_row, __( 'List name', 'embed-sendy' ), $index );
 					}
@@ -997,6 +998,38 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 					font-weight: 500;
 					width: 250px;
 					padding-right: 12px;
+				}
+				.dynamic-field-row .id-label {
+					background: #e5e5e5;
+					line-height: 1;
+					border-radius: 4px;
+					padding: 2px 6px;
+					margin-right: 10px;
+					cursor: pointer;
+					position: relative;
+				}
+				.dynamic-field-row .id-label:after {
+					content: attr(data-tooltip);
+					position: absolute;
+					left: -30px;
+					bottom: -55px;
+					background: #e5e5e5;
+					font-size: 12px;
+					padding: 5px;
+					display: none;
+					z-index: 100;
+					width: 110px;
+					border-radius: 4px;
+					line-height: 1.2;
+				}
+				.dynamic-field-row .id-label:hover:after {
+					display: inline-block;
+				}
+				.dynamic-field-row .id-label em {
+					font-style: normal;
+				}
+				.esd-table thead td:first-child {
+					padding-left: 52px;
 				}
 			</style>
 			<?php
