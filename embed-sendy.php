@@ -227,7 +227,7 @@ final class Embed_Sendy {
 	/**
 	 * Format all Sendy lists as an associative array.
 	 *
-	 * @return array|void Returns array of List Name -> List ID.
+	 * @return array|bool Returns array of List Name -> List ID.
 	 */
 	public function get_lists() {
 		$lists = self::get_option( 'esd_lists' );
@@ -248,7 +248,7 @@ final class Embed_Sendy {
 	/**
 	 * Format all Sendy lists as an object for Gutenberg.
 	 *
-	 * @return array|void Returns array of List Name -> List ID.
+	 * @return array|bool Returns array of List Name -> List ID.
 	 */
 	public function get_lists_object() {
 		$lists = self::get_option( 'esd_lists' );
@@ -327,7 +327,7 @@ final class Embed_Sendy {
 	public function filter_form_content( $text, $list ) {
 		$filtered_text = $text;
 
-		$subscribers = self::get_subscribers( $list );
+		$subscribers = $this->get_subscribers( $list );
 		if ( $subscribers ) {
 			$filtered_text = str_replace( '{count}', $subscribers, $text );
 		}
@@ -430,7 +430,7 @@ final class Embed_Sendy {
 		$default_list = self::get_option( 'esd_default_list' );
 
 		ob_start();
-		self::get_template( 'form-embed-sendy', array( 'list' => $default_list ) );
+		$this->get_template( 'form-embed-sendy', array( 'list' => $default_list ) );
 		$template = ob_get_clean();
 
 		if ( array_key_exists( 'before_post', $conditions ) && is_singular( 'post' ) ) {
@@ -438,7 +438,7 @@ final class Embed_Sendy {
 		}
 
 		if ( array_key_exists( 'after_post', $conditions ) && is_singular( 'post' ) ) {
-			$content = $content . $template;
+			$content .= $template;
 		}
 
 		if ( array_key_exists( 'before_page', $conditions ) && is_singular( 'page' ) ) {
@@ -446,7 +446,7 @@ final class Embed_Sendy {
 		}
 
 		if ( array_key_exists( 'after_page', $conditions ) && is_singular( 'page' ) ) {
-			$content = $content . $template;
+			$content .= $template;
 		}
 
 		return $content;
@@ -474,7 +474,7 @@ final class Embed_Sendy {
 	}
 
 	/**
-	 * Load the plugin textdomain
+	 * Load the plugin text domain.
 	 *
 	 * @return void
 	 */
