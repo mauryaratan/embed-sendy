@@ -2,8 +2,8 @@
 Contributors: mauryaratan, codestag, analogwp
 Donate link: https://codest.ag/st-donate
 Requires at least: 4.9
-Tested up to: 5.6
-Stable tag: 1.3.2
+Tested up to: 5.6.1
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.6
@@ -60,6 +60,9 @@ No. Sendy is sold separately, please head to [Sendy](https://codest.ag/sendy) we
 4. Embed Sendy Gutenberg block.
 
 == Changelog ==
+
+= 1.3.3 =
+* New: Add support for Google Recaptcha v3
 
 = 1.3.2 =
 * Fix: Conflict with commit submit button ID on single posts/pages
