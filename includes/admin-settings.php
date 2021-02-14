@@ -96,6 +96,16 @@ if ( class_exists( 'WP_OSA' ) ) {
 	$wposa_obj->add_field(
 		'esd_settings',
 		array(
+			'id' => 'esd_recaptcha_key_v3',
+			'type' => 'text',
+			'name' => __( 'Google Recaptcha v3 Site Key', 'embed-sendy' ),
+			'desc' => __( 'Enter v3 Recaptcha key. With v3 key in place, v2 recaptcha would be disabled automatically.', 'embed-sendy' ),
+		)
+	);
+
+	$wposa_obj->add_field(
+		'esd_settings',
+		array(
 			'id'      => 'esd_show_gdpr',
 			'type'    => 'checkbox',
 			'name'    => __( 'GDPR Enhancement', 'embed-sendy' ),
