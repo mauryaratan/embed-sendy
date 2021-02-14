@@ -918,6 +918,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 
 					if ( ! $('body').find('.dynamic-field-row').length ) {
 						$('<p class="dynamic-field-row">\
+							<span class="id-label"><em>ID: </em><span></span></span>\
 							<input type="text" data-index="0" class="regular-text" name="'+ setting_section +'['+setting_id+'][0][]" id="'+ setting_section +'[esd_lists]" >\
 							<input type="text" data-index="0" class="regular-text" name="'+ setting_section +'['+setting_id+'][0][]" id="'+ setting_section +'[esd_lists]" >\
 							</p>').insertBefore(self);
@@ -926,8 +927,8 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 
 					var prevElement = self.prev('.dynamic-field-row');
 
-					var prevChild = prevElement.find('input:first-child');
-					var prevID = parseInt(prevChild.data('index'));
+					var prevChild = prevElement.find('input:first-of-type');
+					var prevID = parseInt(prevChild.attr('data-index'));
 					var setting_slug = prevChild.attr('id');
 
 					var newID = originalIndex + prevID;
@@ -940,7 +941,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 										.attr('name', newSetting)
 										.attr('value', '');
 
-					newElement.insertBefore(self).wrapAll('<p class="dynamic-field-row" />');
+					newElement.insertBefore(self).wrapAll('<p class="dynamic-field-row new-field" />');
 
 					originalIndex++;
 				} );
@@ -1028,6 +1029,7 @@ if ( ! class_exists( 'WP_OSA' ) ) :
 				.dynamic-field-row .id-label em {
 					font-style: normal;
 				}
+				.dynamic-field-row.new-field,
 				.esd-table thead td:first-child {
 					padding-left: 52px;
 				}
